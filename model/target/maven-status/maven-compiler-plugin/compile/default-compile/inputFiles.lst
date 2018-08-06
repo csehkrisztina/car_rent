@@ -1,0 +1,12 @@
+/home/kriszta/Projects/car_rent/model/src/main/java/com/rent/model/dto/UserDto.java
+/home/kriszta/Projects/car_rent/model/src/main/java/com/rent/model/entity/UserEntity.java
+/home/kriszta/Projects/car_rent/model/src/main/java/com/rent/model/repository/CarRepository.java
+/home/kriszta/Projects/car_rent/model/src/main/java/com/rent/model/Brand.java
+/home/kriszta/Projects/car_rent/model/src/main/java/com/rent/model/TransmissionType.java
+/home/kriszta/Projects/car_rent/model/src/main/java/com/rent/model/repository/RentRepository.java
+/home/kriszta/Projects/car_rent/model/src/main/java/com/rent/model/entity/RentEntity.java
+/home/kriszta/Projects/car_rent/model/src/main/java/com/rent/model/FuelType.java
+/home/kriszta/Projects/car_rent/model/src/main/java/com/rent/model/repository/UserRepository.java
+/home/kriszta/Projects/car_rent/model/src/main/java/com/rent/model/dto/RentDto.java
+/home/kriszta/Projects/car_rent/model/src/main/java/com/rent/model/dto/CarDto.java
+/home/kriszta/Projects/car_rent/model/src/main/java/com/rent/model/entity/CarEntity.java

@@ -2,11 +2,9 @@ package com.rent.rest_api;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Component
 public interface UserController {
 
     @PostMapping("user/add")
