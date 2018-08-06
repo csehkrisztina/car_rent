@@ -1,5 +1,7 @@
 package com.rent.model.entity;
 
+import com.rent.model.dto.RentDto;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -65,5 +67,23 @@ public class RentEntity {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public void update(RentDto rent) {
+        this.userId = rent.getUserId();
+        this.carId = rent.getCarId();
+        this.startDate = rent.getStartDate();
+        this.endDate = rent.getEndDate();
+        this.price = rent.getPrice();
+    }
+
+    public RentDto toDto() {
+        RentDto rent = new RentDto();
+        rent.setUserId(this.userId);
+        rent.setCarId(this.carId);
+        rent.setStartDate(this.startDate);
+        rent.setEndDate(this.endDate);
+        rent.setPrice(this.price);
+        return rent;
     }
 }

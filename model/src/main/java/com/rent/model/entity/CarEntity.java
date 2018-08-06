@@ -19,13 +19,13 @@ public class CarEntity {
 
     private String registNumber; // nr de inmatriculare
 
-    private FuelType fuelType;
+    private String fuelType;
 
     private float price;
 
-    private TransmissionType transmissionType;
+    private String transmissionType;
 
-    private Brand brand;
+    private String brand;
 
     public Long getId() {
         return id;
@@ -39,11 +39,11 @@ public class CarEntity {
         this.registNumber = registNumber;
     }
 
-    public FuelType getFuelType() {
+    public String getFuelType() {
         return fuelType;
     }
 
-    public void setFuelType(FuelType fuelType) {
+    public void setFuelType(String fuelType) {
         this.fuelType = fuelType;
     }
 
@@ -55,19 +55,19 @@ public class CarEntity {
         this.price = price;
     }
 
-    public TransmissionType getTransmissionType() {
+    public String getTransmissionType() {
         return transmissionType;
     }
 
-    public void setTransmissionType(TransmissionType transmissionType) {
+    public void setTransmissionType(String transmissionType) {
         this.transmissionType = transmissionType;
     }
 
-    public Brand getBrand() {
+    public String getBrand() {
         return brand;
     }
 
-    public void setBrand(Brand brand) {
+    public void setBrand(String brand) {
         this.brand = brand;
     }
 

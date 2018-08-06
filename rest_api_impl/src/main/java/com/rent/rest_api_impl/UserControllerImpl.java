@@ -14,7 +14,6 @@ public class UserControllerImpl implements UserController {
     @Autowired
     private UserService userService;
 
-
     /*
     example
     {
@@ -29,7 +28,6 @@ public class UserControllerImpl implements UserController {
     @PostMapping("user/add")
     public ResponseEntity addUser(@RequestBody UserDto user) {
         if(user != null) {
-            userService.addUser(user);
             return new ResponseEntity<String>("User added", HttpStatus.OK);
         }
         return new ResponseEntity<String>("Invalid input", HttpStatus.BAD_REQUEST);
@@ -38,13 +36,17 @@ public class UserControllerImpl implements UserController {
     @Override
     @PutMapping("user/edit/{id}")
     public ResponseEntity editUser(@PathVariable Long id, @RequestBody UserDto updatedUser) {
-        return null;
+        if(userService.existsUserWithId(id)) {
+            userService.updateUser(id, updatedUser);
+            return new ResponseEntity<String>("User updated", HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("Invalid input", HttpStatus.BAD_REQUEST);
     }
 
     @Override
     @DeleteMapping("user/delete/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
-        if(id != null) { // aici trebuie o functie care valideaza id-ul daca exista
+        if(userService.existsUserWithId(id)) {
             userService.deleteUser(id);
             return new ResponseEntity<String>("User deleted", HttpStatus.OK);
         }

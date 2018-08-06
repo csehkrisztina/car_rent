@@ -9,18 +9,18 @@ import java.util.List;
 @RestController
 public interface CarController {
 
-    @GetMapping("/car/{id}")
-    CarDto getCar(@RequestParam Long id);
+    @GetMapping("car/{id}")
+    ResponseEntity getCar(@PathVariable("id") Long id);
 
-    @GetMapping("/car/list")
+    @GetMapping("car/list")
     List<CarDto> getAllCars();
 
-    @PostMapping("/car/add")
+    @PostMapping("car/add")
     ResponseEntity addCar(@RequestBody CarDto car);
 
-    @PutMapping("/car/edit/{id}")
+    @PutMapping("car/edit/{id}")
     ResponseEntity editCar(@PathVariable Long id, @RequestBody CarDto carToUpdate);
 
-    @DeleteMapping("/car/delete/{id}")
+    @DeleteMapping("car/delete/{id}")
     ResponseEntity deleteCar(@PathVariable Long id);
 }

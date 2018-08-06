@@ -1,8 +1,25 @@
 package com.rent.service_api;
 
-import org.springframework.stereotype.Component;
+import com.rent.model.Brand;
+import com.rent.model.FuelType;
+import com.rent.model.TransmissionType;
+import com.rent.model.dto.CarDto;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface CarService {
+
+    CarDto getCar(Long id);
+
+    List<CarDto> getAllCars();
+
+    void saveCar(CarDto car);
+
+    void updateCar(Long id, CarDto updatedCar);
+
+    void deleteCar(Long id);
+
+    boolean existsCarWithId(Long id);
 }

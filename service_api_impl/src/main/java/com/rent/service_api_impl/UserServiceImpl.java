@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -17,16 +18,16 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public void addUser(UserDto user) {
+    public void saveUser(UserDto user) {
         UserEntity u = new UserEntity();
         u.update(user);
         userRepository.save(u);
     }
 
     @Override
-    public void updateUser(Long id, UserDto userToUpdate) {
+    public void updateUser(Long id, UserDto updatedUser) {
         UserEntity u = userRepository.findById(id).get();
-        u.update(userToUpdate);
+        u.update(updatedUser);
         userRepository.save(u);
     }
 
@@ -47,7 +48,11 @@ public class UserServiceImpl implements UserService {
         userRepository.findAll().forEach((user)-> {
             users.add(user.toDto());
         });
-
         return users;
+    }
+
+    @Override
+    public boolean existsUserWithId(Long id) {
+        return userRepository.findById(id).isPresent();
     }
 }

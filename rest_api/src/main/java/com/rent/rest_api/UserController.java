@@ -16,6 +16,6 @@ public interface UserController {
     @DeleteMapping("user/delete/{id}")
     ResponseEntity deleteUser(@PathVariable("id") Long id);
 
-    @PostMapping("/login")
+    @PostMapping("login")
     ResponseEntity login();
 }

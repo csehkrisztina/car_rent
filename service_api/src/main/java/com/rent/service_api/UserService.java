@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    void addUser(UserDto user);
+    void saveUser(UserDto user);
 
     void updateUser(Long id, UserDto userToUpdate);
 
@@ -18,4 +18,8 @@ public interface UserService {
     UserDto getUser(Long id);
 
     List<UserDto> getAllUsers();
+
+//    boolean isLoginDataValid();
+
+    boolean existsUserWithId(Long id);
 }
