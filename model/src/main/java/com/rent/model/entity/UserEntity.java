@@ -22,6 +22,10 @@ public class UserEntity {
 
     private int age;
 
+    private String userName;
+
+    private String password; // ar trebui criptat cumva
+
     public Long getId() {
         return id;
     }
@@ -54,6 +58,22 @@ public class UserEntity {
         return age;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void setAge(int age) {
         this.age = age;
     }
@@ -63,6 +83,7 @@ public class UserEntity {
         this.lastName = user.getLastName();
         this.identNumber = user.getIdentNumber();
         this.age = user.getAge();
+        this.userName = user.getUserName();
     }
 
     public UserDto toDto() {
@@ -71,6 +92,7 @@ public class UserEntity {
         user.setLastName(this.lastName);
         user.setIdentNumber(this.identNumber);
         user.setAge(this.age);
+        user.setUserName(this.userName);
         return user;
     }
 }

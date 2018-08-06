@@ -1,6 +1,6 @@
 package com.rent.rest_api;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.rent.model.dto.UserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.*;
 public interface UserController {
 
     @PostMapping("user/add")
-    ResponseEntity addUser(@RequestBody JSONPObject user);
+    ResponseEntity addUser(@RequestBody UserDto user);
 
     @PutMapping("user/edit/{id}")
-    ResponseEntity editUser(@PathVariable("id") Long id, @RequestBody JSONPObject updatedUser);
+    ResponseEntity editUser(@PathVariable("id") Long id, @RequestBody UserDto updatedUser);
 
     @DeleteMapping("user/delete/{id}")
     ResponseEntity deleteUser(@PathVariable("id") Long id);

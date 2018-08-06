@@ -9,6 +9,8 @@ public class UserDto {
 
     private int age;
 
+    private String userName;
+
     public String getFirstName() {
         return firstName;
     }
@@ -39,5 +41,13 @@ public class UserDto {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

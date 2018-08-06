@@ -26,6 +26,11 @@
     <dependencies>
         <dependency>
             <groupId>com.rent</groupId>
+            <artifactId>model</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.rent</groupId>
             <artifactId>rest_api</artifactId>
         </dependency>
 

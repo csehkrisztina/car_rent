@@ -1,6 +1,6 @@
 package com.rent.rest_api;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.rent.model.dto.CarDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,16 +10,16 @@ import java.util.List;
 public interface CarController {
 
     @GetMapping("/car/{id}")
-    JSONPObject getCar(@RequestParam Long id);
+    CarDto getCar(@RequestParam Long id);
 
     @GetMapping("/car/list")
-    List<JSONPObject> getAllCars();
+    List<CarDto> getAllCars();
 
     @PostMapping("/car/add")
-    ResponseEntity addCar(@RequestBody JSONPObject car);
+    ResponseEntity addCar(@RequestBody CarDto car);
 
     @PutMapping("/car/edit/{id}")
-    ResponseEntity editCar(@PathVariable Long id);
+    ResponseEntity editCar(@PathVariable Long id, @RequestBody CarDto carToUpdate);
 
     @DeleteMapping("/car/delete/{id}")
     ResponseEntity deleteCar(@PathVariable Long id);

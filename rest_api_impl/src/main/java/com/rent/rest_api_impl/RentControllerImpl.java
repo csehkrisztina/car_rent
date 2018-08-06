@@ -1,6 +1,6 @@
 package com.rent.rest_api_impl;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.rent.model.dto.RentDto;
 import com.rent.rest_api.RentController;
 import com.rent.service_api.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class RentControllerImpl implements RentController {
 
     @Override
     @PostMapping("/rent")
-    public ResponseEntity rentACar(@RequestBody JSONPObject rent) {
+    public ResponseEntity rentACar(@RequestBody RentDto rent) {
         return null;
     }
 }

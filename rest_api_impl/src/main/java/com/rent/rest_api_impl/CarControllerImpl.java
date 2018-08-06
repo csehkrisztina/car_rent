@@ -1,6 +1,6 @@
 package com.rent.rest_api_impl;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.rent.model.dto.CarDto;
 import com.rent.rest_api.CarController;
 import com.rent.service_api.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +17,25 @@ public class CarControllerImpl implements CarController {
 
     @Override
     @GetMapping("/car/{id}")
-    public JSONPObject getCar(@RequestParam Long id) {
+    public CarDto getCar(@RequestParam Long id) {
         return null;
     }
 
     @Override
     @GetMapping("/car/list")
-    public List<JSONPObject> getAllCars() {
+    public List<CarDto> getAllCars() {
         return null;
     }
 
     @Override
     @PostMapping("/car/add")
-    public ResponseEntity addCar(@RequestBody JSONPObject car) {
+    public ResponseEntity addCar(@RequestBody CarDto car) {
         return null;
     }
 
     @Override
     @PutMapping("/car/edit/{id}")
-    public ResponseEntity editCar(@PathVariable Long id) {
+    public ResponseEntity editCar(@PathVariable Long id, @RequestBody CarDto carToUpdate) {
         return null;
     }
 
