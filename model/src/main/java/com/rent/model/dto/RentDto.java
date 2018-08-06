@@ -1,5 +1,7 @@
 package com.rent.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class RentDto {
@@ -7,8 +9,10 @@ public class RentDto {
 
     private Long carId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
     private float price;

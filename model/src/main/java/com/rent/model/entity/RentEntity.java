@@ -2,10 +2,7 @@ package com.rent.model.entity;
 
 import com.rent.model.dto.RentDto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -19,8 +16,10 @@ public class RentEntity {
 
     private Long carId;
 
+    @Column(columnDefinition="DATE")
     private Date startDate;
 
+    @Column(columnDefinition="DATE")
     private Date endDate;
 
     private float price;

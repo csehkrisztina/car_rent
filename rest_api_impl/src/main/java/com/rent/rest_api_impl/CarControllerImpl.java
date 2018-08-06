@@ -18,15 +18,17 @@ public class CarControllerImpl implements CarController {
     private CarService carService;
 
     @Override
-    @GetMapping("/car/{id}")
-    public ResponseEntity getCar(@RequestParam Long id) {
-        if(carService.existsCarWithId(id))
+    @GetMapping("car/{id}")
+    public ResponseEntity getCar(@PathVariable Long id) {
+        if(carService.existsCarWithId(id)) {
+            carService.getCar(id);
             return new ResponseEntity<CarDto>(carService.getCar(id), HttpStatus.OK);
+        }
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
     @Override
-    @GetMapping("/car/list")
+    @GetMapping("car/list")
     public List<CarDto> getAllCars() {
         return carService.getAllCars();
     }
@@ -43,7 +45,7 @@ public class CarControllerImpl implements CarController {
     */
 
     @Override
-    @PostMapping("/car/add")
+    @PostMapping("car/add")
     public ResponseEntity addCar(@RequestBody CarDto car) {
         carService.saveCar(car);
         // poate ar trebui ceva test
@@ -51,7 +53,7 @@ public class CarControllerImpl implements CarController {
     }
 
     @Override
-    @PutMapping("/car/edit/{id}")
+    @PutMapping("car/edit/{id}")
     public ResponseEntity editCar(@PathVariable Long id, @RequestBody CarDto carToUpdate) {
         if(carService.existsCarWithId(id)) {
             carService.updateCar(id, carToUpdate);
@@ -61,7 +63,7 @@ public class CarControllerImpl implements CarController {
     }
 
     @Override
-    @DeleteMapping("/car/delete/{id}")
+    @DeleteMapping("car/delete/{id}")
     public ResponseEntity deleteCar(@PathVariable Long id) {
         if(carService.existsCarWithId(id)) {
             carService.deleteCar(id);

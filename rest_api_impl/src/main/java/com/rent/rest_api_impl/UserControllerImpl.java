@@ -28,6 +28,7 @@ public class UserControllerImpl implements UserController {
     @PostMapping("user/add")
     public ResponseEntity addUser(@RequestBody UserDto user) {
         if(user != null) {
+            userService.saveUser(user);
             return new ResponseEntity<String>("User added", HttpStatus.OK);
         }
         return new ResponseEntity<String>("Invalid input", HttpStatus.BAD_REQUEST);
@@ -54,7 +55,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @PostMapping("/login")
+    @PostMapping("login")
     public ResponseEntity login() {
         return null;
     }

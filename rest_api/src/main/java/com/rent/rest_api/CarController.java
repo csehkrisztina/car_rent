@@ -10,7 +10,7 @@ import java.util.List;
 public interface CarController {
 
     @GetMapping("car/{id}")
-    ResponseEntity getCar(@PathVariable("id") Long id);
+    ResponseEntity getCar(@PathVariable Long id);
 
     @GetMapping("car/list")
     List<CarDto> getAllCars();
