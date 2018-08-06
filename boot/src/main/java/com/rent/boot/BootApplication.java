@@ -11,10 +11,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan({"com.rent"})
 @EnableAutoConfiguration
 @EnableJpaRepositories("com.rent")
-@EntityScan("com.rent")
+@EntityScan(basePackages = "com.rent.model.entity")
 public class BootApplication {
-
     public static void main(String[] args) {
-        SpringApplication.run(BootApplication.class, args);
-    }
+        SpringApplication.run(BootApplication.class, args); }
 }
