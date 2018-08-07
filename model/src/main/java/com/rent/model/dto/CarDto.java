@@ -1,9 +1,5 @@
 package com.rent.model.dto;
 
-import com.rent.model.Brand;
-import com.rent.model.FuelType;
-import com.rent.model.TransmissionType;
-
 public class CarDto {
     private String registNumber; // nr de inmatriculare
 
@@ -14,6 +10,8 @@ public class CarDto {
     private String transmissionType;
 
     private String brand;
+
+    private boolean available;
 
     public String getRegistNumber() {
         return registNumber;
@@ -53,5 +51,21 @@ public class CarDto {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public boolean equals(Object o){
+        if (getClass() == o.getClass()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

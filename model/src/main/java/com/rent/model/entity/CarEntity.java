@@ -1,5 +1,6 @@
 package com.rent.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rent.model.Brand;
 import com.rent.model.FuelType;
 import com.rent.model.TransmissionType;
@@ -26,6 +27,8 @@ public class CarEntity {
     private String transmissionType;
 
     private String brand;
+
+    private boolean available;
 
     public Long getId() {
         return id;
@@ -69,6 +72,14 @@ public class CarEntity {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public boolean isStatus() {
+        return available;
+    }
+
+    public void setStatus(boolean status) {
+        this.available = status;
     }
 
     public void update(CarDto car) {

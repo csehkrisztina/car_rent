@@ -2,10 +2,7 @@ package com.rent.model.entity;
 
 import com.rent.model.dto.UserDto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "User")
@@ -25,6 +22,9 @@ public class UserEntity {
     private String userName;
 
     private String password; // ar trebui criptat cumva
+
+    @ManyToOne()
+    private RoleEntity role;
 
     public Long getId() {
         return id;
@@ -76,6 +76,14 @@ public class UserEntity {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public RoleEntity getRole() {
+        return role;
+    }
+
+    public void setRole(RoleEntity role) {
+        this.role = role;
     }
 
     public void update(UserDto user) {

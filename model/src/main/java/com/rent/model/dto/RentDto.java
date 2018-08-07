@@ -5,9 +5,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class RentDto {
+
     private Long userId;
 
     private Long carId;
+
+    private Long locationId;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
@@ -17,20 +20,28 @@ public class RentDto {
 
     private float price;
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public Long getCarId() {
         return carId;
     }
 
     public void setCarId(Long carId) {
         this.carId = carId;
+    }
+
+    public Long getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(Long locationId) {
+        this.locationId = locationId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Date getStartDate() {

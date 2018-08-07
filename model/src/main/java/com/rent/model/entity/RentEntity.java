@@ -12,9 +12,11 @@ public class RentEntity {
     @GeneratedValue
     private Long id;
 
-    private Long userId;
+    @ManyToOne()
+    private UserEntity user;
 
-    private Long carId;
+    @ManyToOne()
+    private CarEntity car;
 
     @Column(columnDefinition="DATE")
     private Date startDate;
@@ -24,24 +26,27 @@ public class RentEntity {
 
     private float price;
 
+    @ManyToOne()
+    private LocationEntity location;
+
     public Long getId() {
         return id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public Long getCarId() {
-        return carId;
+    public CarEntity getCar() {
+        return car;
     }
 
-    public void setCarId(Long carId) {
-        this.carId = carId;
+    public void setCar(CarEntity car) {
+        this.car = car;
     }
 
     public Date getStartDate() {
@@ -68,9 +73,17 @@ public class RentEntity {
         this.price = price;
     }
 
+    public LocationEntity getLocation() {
+        return location;
+    }
+
+    public void setLocation(LocationEntity location) {
+        this.location = location;
+    }
+
     public void update(RentDto rent) {
-        this.userId = rent.getUserId();
-        this.carId = rent.getCarId();
+//        this.userId = rent.getUserId();
+//        this.carId = rent.getCarId();
         this.startDate = rent.getStartDate();
         this.endDate = rent.getEndDate();
         this.price = rent.getPrice();
@@ -78,8 +91,8 @@ public class RentEntity {
 
     public RentDto toDto() {
         RentDto rent = new RentDto();
-        rent.setUserId(this.userId);
-        rent.setCarId(this.carId);
+        rent.setUserId(this.user.getId());
+        rent.setCarId(this.car.getId());
         rent.setStartDate(this.startDate);
         rent.setEndDate(this.endDate);
         rent.setPrice(this.price);

@@ -1,5 +1,6 @@
 package com.rent.rest_api_impl;
 
+import com.rent.model.dto.LocationDto;
 import com.rent.model.dto.RentDto;
 import com.rent.rest_api.RentController;
 import com.rent.service_api.CarService;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class RentControllerImpl implements RentController {
@@ -22,6 +25,16 @@ public class RentControllerImpl implements RentController {
     @Autowired
     private UserService userService;
 
+    /*
+    example
+    {
+        "userId": "1",
+        "carId": "2",
+        "locationId": 0,
+        "startDate": "2018-09-10",
+        "endDate": "2018-09-15"
+    }
+    */
     @Override
     @PostMapping("rent")
     public ResponseEntity rentACar(@RequestBody RentDto rent) {
