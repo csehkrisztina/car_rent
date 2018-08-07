@@ -15,6 +15,9 @@ public interface CarController {
     @GetMapping("car/list")
     List<CarDto> getAllCars();
 
+    @GetMapping("/car/available")
+    List<CarDto> getAvailableCars();
+
     @PostMapping("car/add")
     ResponseEntity addCar(@RequestBody CarDto car);
 

@@ -15,6 +15,8 @@ public interface CarService {
 
     List<CarDto> getAllCars();
 
+    List<CarDto> getAvailableCars();
+
     void saveCar(CarDto car);
 
     void updateCar(Long id, CarDto updatedCar);

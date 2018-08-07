@@ -74,12 +74,12 @@ public class CarEntity {
         this.brand = brand;
     }
 
-    public boolean isStatus() {
+    public boolean isAvailable() {
         return available;
     }
 
-    public void setStatus(boolean status) {
-        this.available = status;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     public void update(CarDto car) {

@@ -11,6 +11,8 @@ public class UserDto {
 
     private String userName;
 
+    private String password;
+
     public String getFirstName() {
         return firstName;
     }
@@ -49,5 +51,13 @@ public class UserDto {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
