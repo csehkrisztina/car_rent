@@ -1,7 +1,6 @@
 package com.rent.service_api;
 
 import com.rent.model.dto.UserDto;
-import com.rent.model.entity.UserEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +19,8 @@ public interface UserService {
     List<UserDto> getAllUsers();
 
 //    boolean isLoginDataValid();
+
+    void changeUserRole(Long userId, String role);
 
     boolean existsUserWithId(Long id);
 }

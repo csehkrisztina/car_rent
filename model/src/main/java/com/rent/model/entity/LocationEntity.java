@@ -2,10 +2,7 @@ package com.rent.model.entity;
 
 import com.rent.model.dto.LocationDto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "location")
@@ -18,6 +15,8 @@ public class LocationEntity {
     private String country;
 
     private String county;
+
+    private String city;
 
     private String zipCode;
 
@@ -43,6 +42,14 @@ public class LocationEntity {
 
     public void setCounty(String county) {
         this.county = county;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getZipCode() {

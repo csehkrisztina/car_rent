@@ -1,9 +1,5 @@
 package com.rent.model.dto;
 
-import com.rent.model.Brand;
-import com.rent.model.FuelType;
-import com.rent.model.TransmissionType;
-
 public class CarDto {
     private String registNumber; // nr de inmatriculare
 

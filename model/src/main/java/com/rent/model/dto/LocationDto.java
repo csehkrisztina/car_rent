@@ -6,6 +6,8 @@ public class LocationDto {
 
     private String county;
 
+    private String city;
+
     private String zipCode;
 
     private String street;
@@ -26,6 +28,14 @@ public class LocationDto {
 
     public void setCounty(String county) {
         this.county = county;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getZipCode() {

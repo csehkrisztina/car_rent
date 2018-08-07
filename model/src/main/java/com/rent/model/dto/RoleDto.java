@@ -1,6 +1,5 @@
 package com.rent.model.dto;
 
-
 public class RoleDto {
 
     private String role;
