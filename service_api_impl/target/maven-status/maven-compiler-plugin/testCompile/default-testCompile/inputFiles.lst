@@ -1,1 +1,3 @@
-/home/kriszta/Projects/car_rent/service_api_impl/src/test/java/com/rent/service_api_impl/ServiceApiImplApplicationTests.java
+/home/user/Projects/cars/service_api_impl/src/test/java/com/rent/service_api_impl/UserServiceTest.java
+/home/user/Projects/cars/service_api_impl/src/test/java/com/rent/service_api_impl/CarServiceTest.java
+/home/user/Projects/cars/service_api_impl/src/test/java/com/rent/service_api_impl/RentServiceTest.java

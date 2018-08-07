@@ -1,3 +1,4 @@
-/home/kriszta/Projects/car_rent/service_api/src/main/java/com/rent/service_api/UserService.java
-/home/kriszta/Projects/car_rent/service_api/src/main/java/com/rent/service_api/RentService.java
-/home/kriszta/Projects/car_rent/service_api/src/main/java/com/rent/service_api/CarService.java
+/home/user/Projects/cars/service_api/src/main/java/com/rent/service_api/CarService.java
+/home/user/Projects/cars/service_api/src/main/java/com/rent/service_api/UserService.java
+/home/user/Projects/cars/service_api/src/main/java/com/rent/service_api/RentService.java
+/home/user/Projects/cars/service_api/src/main/java/com/rent/service_api/DashboardService.java

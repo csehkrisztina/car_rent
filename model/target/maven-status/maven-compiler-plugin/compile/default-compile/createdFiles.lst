@@ -1,12 +1,12 @@
 com/rent/model/TransmissionType.class
-com/rent/model/entity/RentEntity.class
 com/rent/model/entity/CarEntity.class
-com/rent/model/dto/CarDto.class
 com/rent/model/repository/CarRepository.class
 com/rent/model/dto/RentDto.class
-com/rent/model/FuelType.class
 com/rent/model/Brand.class
-com/rent/model/repository/UserRepository.class
 com/rent/model/repository/RentRepository.class
-com/rent/model/dto/UserDto.class
 com/rent/model/entity/UserEntity.class
+com/rent/model/entity/RentEntity.class
+com/rent/model/dto/CarDto.class
+com/rent/model/FuelType.class
+com/rent/model/repository/UserRepository.class
+com/rent/model/dto/UserDto.class
