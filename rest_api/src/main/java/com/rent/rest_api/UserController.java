@@ -1,6 +1,7 @@
 package com.rent.rest_api;
 
 import com.rent.model.dto.UserDto;
+import com.rent.model.login.Login;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,5 +18,5 @@ public interface UserController {
     ResponseEntity deleteUser(@PathVariable("id") Long id);
 
     @PostMapping("login")
-    ResponseEntity login();
+    ResponseEntity login(@RequestBody Login loginData);
 }

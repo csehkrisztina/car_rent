@@ -1,6 +1,7 @@
 package com.rent.rest_api_impl;
 
 import com.rent.model.dto.UserDto;
+import com.rent.model.login.Login;
 import com.rent.rest_api.UserController;
 import com.rent.service_api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @PostMapping("login")
-    public ResponseEntity login() {
+    public ResponseEntity login(@RequestBody Login loginData) {
         return null;
     }
 }

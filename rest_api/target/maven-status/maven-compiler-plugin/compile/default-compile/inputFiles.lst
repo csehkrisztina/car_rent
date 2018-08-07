@@ -1,3 +1,4 @@
-/home/kriszta/Projects/car_rent/rest_api/src/main/java/com/rent/rest_api/UserController.java
-/home/kriszta/Projects/car_rent/rest_api/src/main/java/com/rent/rest_api/CarController.java
-/home/kriszta/Projects/car_rent/rest_api/src/main/java/com/rent/rest_api/RentController.java
+/home/user/Projects/cars/rest_api/src/main/java/com/rent/rest_api/UserController.java
+/home/user/Projects/cars/rest_api/src/main/java/com/rent/rest_api/CarController.java
+/home/user/Projects/cars/rest_api/src/main/java/com/rent/rest_api/DashboardController.java
+/home/user/Projects/cars/rest_api/src/main/java/com/rent/rest_api/RentController.java
