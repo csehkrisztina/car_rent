@@ -12,7 +12,4 @@ public interface RentController {
 
     @PostMapping("/rent")
     ResponseEntity rentACar(@RequestBody RentDto rent);
-
-    @GetMapping("/locations")
-    List<LocationDto> getAllLocations();
 }

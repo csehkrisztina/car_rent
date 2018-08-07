@@ -11,6 +11,8 @@ public class CarDto {
 
     private String brand;
 
+    private boolean available;
+
     public String getRegistNumber() {
         return registNumber;
     }
@@ -49,5 +51,21 @@ public class CarDto {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public boolean equals(Object o){
+        if (getClass() == o.getClass()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

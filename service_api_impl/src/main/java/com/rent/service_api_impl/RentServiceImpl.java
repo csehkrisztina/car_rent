@@ -39,6 +39,9 @@ public class RentServiceImpl implements RentService {
 
         r.update(rent);
         r.setUser(getUserById(rent.getUserId()));
+
+        setCarUsed(rent.getCarId());
+
         r.setCar(getCarById(rent.getCarId()));
         r.setLocation(getLocationById(rent.getLocationId()));
 
@@ -49,15 +52,6 @@ public class RentServiceImpl implements RentService {
         r.setPrice(price);
 
         rentRepository.save(r);
-    }
-
-    @Override
-    public List<LocationDto> getAllLocations() {
-        List<LocationDto> locations = new ArrayList<>();
-        locationRepository.findAll().forEach((location) -> {
-            locations.add(location.toDto());
-        });
-        return locations;
     }
 
     @Override
@@ -92,5 +86,11 @@ public class RentServiceImpl implements RentService {
         return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
     }
 
+    @Override
+    public void setCarUsed(Long id) {
+        CarEntity car = carRepository.findById(id).get();
+        car.setStatus(false);
 
+        carRepository.save(car);
+    }
 }

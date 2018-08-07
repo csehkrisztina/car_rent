@@ -14,8 +14,6 @@ public interface RentService {
 
     void saveRent(RentDto rent);
 
-    List<LocationDto> getAllLocations();
-
     UserEntity getUserById(Long id);
 
     CarEntity getCarById(Long id);
@@ -27,4 +25,6 @@ public interface RentService {
     float getPriceDependingOnDateInterval(Date startDate, Date endDate, float pricePerDay);
 
     int daysBetweenTwoDate(Date d1, Date d2);
+
+    void setCarUsed(Long id);
 }

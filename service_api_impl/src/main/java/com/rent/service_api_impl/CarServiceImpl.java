@@ -1,8 +1,5 @@
 package com.rent.service_api_impl;
 
-import com.rent.model.Brand;
-import com.rent.model.FuelType;
-import com.rent.model.TransmissionType;
 import com.rent.model.dto.CarDto;
 import com.rent.model.entity.CarEntity;
 import com.rent.model.repository.CarRepository;
@@ -28,9 +25,8 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<CarDto> getAllCars() {
         List<CarDto> cars = new ArrayList<>();
-        carRepository.findAll().forEach((car) -> {
-            cars.add(car.toDto());
-        });
+        carRepository.findAll().forEach((car) -> cars.add(car.toDto()));
+
         return cars;
     }
 
@@ -38,6 +34,8 @@ public class CarServiceImpl implements CarService {
     public void saveCar(CarDto car) {
         CarEntity c = new CarEntity();
         c.update(car);
+        c.setStatus(true);
+
         carRepository.save(c);
     }
 
@@ -45,6 +43,7 @@ public class CarServiceImpl implements CarService {
     public void updateCar(Long id, CarDto updatedCar) {
         CarEntity c = carRepository.findById(id).get();
         c.update(updatedCar);
+
         carRepository.save(c);
     }
 
@@ -57,19 +56,4 @@ public class CarServiceImpl implements CarService {
     public boolean existsCarWithId(Long id) {
         return carRepository.findById(id).isPresent();
     }
-
-//    @Override
-//    public Brand convertStringToBrand(String s) {
-//
-//    }
-//
-//    @Override
-//    public FuelType convertStringToFuelType(String s) {
-//        return null;
-//    }
-//
-//    @Override
-//    public TransmissionType convertStringToTransmissionType(String s) {
-//        return null;
-//    }
 }

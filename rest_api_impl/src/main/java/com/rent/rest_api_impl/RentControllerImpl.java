@@ -44,9 +44,4 @@ public class RentControllerImpl implements RentController {
         }
         return new ResponseEntity<String>("Invalid input", HttpStatus.BAD_REQUEST);
     }
-
-    @Override
-    public List<LocationDto> getAllLocations() {
-        return rentService.getAllLocations();
-    }
 }
