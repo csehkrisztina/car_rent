@@ -5,7 +5,7 @@ import com.rent.model.dto.LocationDto;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "location")
+@Table(name = "Location")
 public class LocationEntity {
 
     @Id

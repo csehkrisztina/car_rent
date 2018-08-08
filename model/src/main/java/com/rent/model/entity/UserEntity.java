@@ -15,16 +15,19 @@ public class UserEntity {
 
     private String lastName;
 
-    private String identNumber; // personal identification number = CNP
+    // personal identification number = CNP
+    private String identNumber;
 
     private int age;
 
     private String userName;
 
-    private String password; // ar trebui criptat cumva
+    private String password;
 
-    @ManyToOne()
-    private RoleEntity role;
+    private boolean enabled;
+
+//    @ManyToOne()
+//    private RoleEntity role;
 
     public Long getId() {
         return id;
@@ -78,12 +81,20 @@ public class UserEntity {
         this.age = age;
     }
 
-    public RoleEntity getRole() {
-        return role;
+//    public RoleEntity getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(RoleEntity role) {
+//        this.role = role;
+//    }
+
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setRole(RoleEntity role) {
-        this.role = role;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public void update(UserDto user) {
