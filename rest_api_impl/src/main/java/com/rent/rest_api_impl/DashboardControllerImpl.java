@@ -67,7 +67,7 @@ public class DashboardControllerImpl implements DashboardController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
 
-        return "loginPage";
+        return "loginPage.html";
     }
 
     @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)

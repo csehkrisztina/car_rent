@@ -35,13 +35,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         System.out.println("Found User: " + user);
 
-        // [ROLE_USER, ROLE_ADMIN,..]
+        // [CLIENT, ADMIN, SUPERADMIN]
         List<String> roleNames = roleRepository.findRolesByUserId(user.getId());
 
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
         if (roleNames != null) {
             for (String role : roleNames) {
-                // ROLE_USER, ROLE_ADMIN,..
                 GrantedAuthority authority = new SimpleGrantedAuthority(role);
                 grantList.add(authority);
             }
