@@ -23,4 +23,6 @@ public interface UserService {
     void changeUserRole(Long userId, String role);
 
     boolean existsUserWithId(Long id);
+
+    public List<String> getRoles(Long id);
 }

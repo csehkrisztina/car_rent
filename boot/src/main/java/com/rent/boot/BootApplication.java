@@ -1,5 +1,6 @@
 package com.rent.boot;
 
+import com.rent.model.entity.RoleEntity;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan({"com.rent.model", "com.rent.rest_api", "com.rent.rest_api_impl", "com.rent.service_api", "com.rent.service_api_impl"})
 public class BootApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BootApplication.class, args); }
+        SpringApplication.run(BootApplication.class, args);
+    }
 }
 

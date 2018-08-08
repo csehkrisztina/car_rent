@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserControllerImpl implements UserController {
 
@@ -59,5 +61,10 @@ public class UserControllerImpl implements UserController {
     @PostMapping("login")
     public ResponseEntity login(@RequestBody Login loginData) {
         return null;
+    }
+
+    @GetMapping("/roles/{id}")
+    public List<String> getRoles(@PathVariable Long id) {
+        return userService.getRoles(id);
     }
 }

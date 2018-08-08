@@ -74,4 +74,9 @@ public class UserServiceImpl implements UserService {
     public boolean existsUserWithId(Long id) {
         return userRepository.findById(id).isPresent();
     }
+
+    @Override
+    public List<String> getRoles(Long id) {
+        return roleRepository.findRolesByUserId(id);
+    }
 }
