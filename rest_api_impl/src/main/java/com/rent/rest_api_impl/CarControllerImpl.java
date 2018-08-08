@@ -33,6 +33,12 @@ public class CarControllerImpl implements CarController {
         return carService.getAllCars();
     }
 
+    @Override
+    @GetMapping("car/available")
+    public List<CarDto> getAvailableCars() {
+        return null;
+    }
+
     /*
     example
     {
