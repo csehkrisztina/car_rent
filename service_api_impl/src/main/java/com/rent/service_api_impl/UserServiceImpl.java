@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     public void saveUser(UserDto user) {
         UserEntity u = new UserEntity();
         u.update(user);
-        // u.setRole(roleRepository.findById(2L).get());
+//        u.setRole(roleRepository.findById(2L).get());
 
         userRepository.save(u);
     }
@@ -62,21 +62,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changeUserRole(Long userId, String role) {
-        UserEntity u = userRepository.findById(userId).get();
-        RoleEntity r = roleRepository.findByRole(role);
-        // u.setRole(r);
-
-        userRepository.save(u);
-    }
-
-    @Override
     public boolean existsUserWithId(Long id) {
         return userRepository.findById(id).isPresent();
-    }
-
-    @Override
-    public List<String> getRoles(Long id) {
-        return roleRepository.findRolesByUserId(id);
     }
 }

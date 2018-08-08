@@ -1,6 +1,5 @@
 package com.rent.service_api_impl;
 
-import com.rent.model.dto.LocationDto;
 import com.rent.model.dto.RentDto;
 import com.rent.model.entity.CarEntity;
 import com.rent.model.entity.LocationEntity;
@@ -14,9 +13,7 @@ import com.rent.service_api.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class RentServiceImpl implements RentService {
@@ -89,7 +86,7 @@ public class RentServiceImpl implements RentService {
     @Override
     public void setCarUsed(Long id) {
         CarEntity car = carRepository.findById(id).get();
-        car.setStatus(false);
+        car.setAvailable(false);
 
         carRepository.save(car);
     }

@@ -31,10 +31,22 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public List<CarDto> getAvailableCars() {
+        List<CarDto> availableCars = new ArrayList<>();
+        carRepository.findAll().forEach((car) -> {
+            if(car.isAvailable()) {
+                availableCars.add(car.toDto());
+            }
+        });
+
+        return availableCars;
+    }
+
+    @Override
     public void saveCar(CarDto car) {
         CarEntity c = new CarEntity();
         c.update(car);
-        c.setStatus(true);
+        c.setAvailable(true);
 
         carRepository.save(c);
     }
