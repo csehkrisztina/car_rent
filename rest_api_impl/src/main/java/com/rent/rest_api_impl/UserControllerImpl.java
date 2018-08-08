@@ -63,6 +63,7 @@ public class UserControllerImpl implements UserController {
         return null;
     }
 
+//    for testing custom query
     @GetMapping("/roles/{id}")
     public List<String> getRoles(@PathVariable Long id) {
         return userService.getRoles(id);

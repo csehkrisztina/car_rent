@@ -37,7 +37,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Setting Service to find User in the database.
         // And Setting PassswordEncoder
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-
     }
 
     @Override
@@ -46,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         // The pages does not require login
-        http.authorizeRequests().antMatchers("/", "/login", "/logout", "roles/{id}").permitAll();
+        http.authorizeRequests().antMatchers("/", "/login", "/logout", "roles/{id}", "/user/add", "/car/add", "/role/add").permitAll();
 
         // /userInfo page requires login as ROLE_USER or ROLE_ADMIN.
         // If no login, it will redirect to /login page.
@@ -76,7 +75,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().and() //
                 .rememberMe().tokenRepository(this.persistentTokenRepository()) //
                 .tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
-
     }
 
     @Bean
@@ -85,5 +83,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         db.setDataSource(dataSource);
         return db;
     }
-
 }

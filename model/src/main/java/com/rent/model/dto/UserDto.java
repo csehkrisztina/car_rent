@@ -53,20 +53,20 @@ public class UserDto {
         this.userName = userName;
     }
 
-<<<<<<< HEAD
-    public boolean equals(Object o){
-        if (getClass() == o.getClass()) {
-            return true;
-        } else {
-            return false;
-        }
-=======
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
->>>>>>> c701ae750eb42e71ac43ea6f227532da86f7e686
+
+    }
+
+    public boolean equals(Object o) {
+        if (getClass() == o.getClass()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
