@@ -18,9 +18,5 @@ public interface UserService {
 
     List<UserDto> getAllUsers();
 
-//    boolean isLoginDataValid();
-
-    void changeUserRole(Long userId, String role);
-
     boolean existsUserWithId(Long id);
 }

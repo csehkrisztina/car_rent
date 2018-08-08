@@ -50,4 +50,12 @@ public class UserDto {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public boolean equals(Object o){
+        if (getClass() == o.getClass()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

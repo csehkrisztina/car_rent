@@ -3,6 +3,7 @@ package com.rent.service_api_impl;
 import com.rent.model.dto.CarDto;
 import com.rent.model.entity.CarEntity;
 import com.rent.model.repository.CarRepository;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,8 @@ import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -36,8 +39,6 @@ public class CarServiceTest {
         car.setFuelType("DIESEL");
         car.setRegistNumber("BH78ASD");
         car.setTransmissionType("MANUAL");
-        car.setPrice(50);
-
     }
 
     @Test
@@ -71,6 +72,43 @@ public class CarServiceTest {
 
         carService.saveCar(c);
 
-        assertFalse(carRepository.findAll().size() > 0);
+        assertFalse(carRepository.count() > 0);
+    }
+
+    @Test
+    public void updateCar_ExpectsRepositorySaveMethodCall() {
+        Optional<CarEntity> c = Optional.of(car);
+        when(carRepository.findById(anyLong())).thenReturn(c);
+
+        carService.updateCar(2L, car.toDto());
+        verify(carRepository, times(1)).save(car);
+    }
+
+    @Test
+    public void deleteCar_ExpectsRepositoryDeleteByIdMEthodCall() {
+
+        carService.deleteCar(2L);
+
+        verify(carRepository, times(1)).deleteById(2L);
+    }
+
+    @Test
+    public void existsCarWithId_ExpectsTrue() {
+        Optional<CarEntity> c = Optional.of(car);
+        when(carRepository.findById(anyLong())).thenReturn(c);
+
+        boolean result = carService.existsCarWithId(2L);
+
+        boolean expected = true;
+        Assert.assertEquals(expected, result);
+    }
+
+    @Test
+    public void existsCarWithId_ExpectsFalse() {
+
+        boolean result = carService.existsCarWithId(2L);
+
+        boolean expected = false;
+        Assert.assertEquals(expected, result);
     }
 }

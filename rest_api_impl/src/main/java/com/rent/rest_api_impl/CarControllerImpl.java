@@ -47,9 +47,11 @@ public class CarControllerImpl implements CarController {
     @Override
     @PostMapping("car/add")
     public ResponseEntity addCar(@RequestBody CarDto car) {
-        carService.saveCar(car);
-        // poate ar trebui ceva test
-        return new ResponseEntity<String>("Car saved", HttpStatus.OK);
+        if(car != null) {
+            carService.saveCar(car);
+            return new ResponseEntity<String>("Car saved", HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("Invalid input", HttpStatus.BAD_REQUEST);
     }
 
     @Override

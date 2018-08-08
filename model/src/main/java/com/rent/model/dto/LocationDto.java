@@ -61,4 +61,12 @@ public class LocationDto {
     public void setNumber(String number) {
         this.number = number;
     }
+
+    public boolean equals(Object o){
+        if (getClass() == o.getClass()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
