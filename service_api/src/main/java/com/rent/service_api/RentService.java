@@ -1,24 +1,22 @@
 package com.rent.service_api;
 
-import com.rent.model.dto.LocationDto;
 import com.rent.model.dto.RentDto;
-import com.rent.model.entity.CarEntity;
-import com.rent.model.entity.LocationEntity;
-import com.rent.model.entity.UserEntity;
+import com.rent.model.entity.Car;
+import com.rent.model.entity.Location;
+import com.rent.model.entity.Users;
 import org.springframework.stereotype.Service;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public interface RentService {
 
     void saveRent(RentDto rent);
 
-    UserEntity getUserById(Long id);
+    Users getUserById(Long id);
 
-    CarEntity getCarById(Long id);
+    Car getCarById(Long id);
 
-    LocationEntity getLocationById(Long id);
+    Location getLocationById(Long id);
 
     float getCarPriceById(Long id);
 

@@ -1,9 +1,6 @@
 package com.rent.rest_api_impl;
 
 import com.rent.model.dto.CarDto;
-import com.rent.model.entity.CarEntity;
-import com.rent.model.repository.CarRepository;
-import com.rent.rest_api.CarController;
 import com.rent.service_api.CarService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 

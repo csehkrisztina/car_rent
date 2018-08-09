@@ -1,9 +1,8 @@
 package com.rent.service_api_impl;
 
 import com.rent.model.dto.UserDto;
-import com.rent.model.entity.UserEntity;
+import com.rent.model.entity.Users;
 import com.rent.model.repository.UserRepository;
-import com.rent.service_api.UserService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,11 +30,11 @@ public class UserServiceTest {
     @Mock
     private UserRepository userRepository;
 
-    private UserEntity user;
+    private Users user;
 
     @Before
     public void SetUp() {
-        user = new UserEntity();
+        user = new Users();
 
     }
 
@@ -49,7 +48,7 @@ public class UserServiceTest {
 
     @Test
     public void updateUser_ExpectsRepositorySaveMethodCall() {
-        Optional<UserEntity> u = Optional.of(user);
+        Optional<Users> u = Optional.of(user);
         when(userRepository.findById(anyLong())).thenReturn(u);
 
         userService.updateUser(2L, user.toDto());
@@ -67,7 +66,7 @@ public class UserServiceTest {
 
     @Test
     public void getUser_ExpectsuserDtoObject() {
-        Optional<UserEntity> u = Optional.of(user);
+        Optional<Users> u = Optional.of(user);
         when(userRepository.findById(anyLong())).thenReturn(u);
 
         UserDto result = userService.getUser(2L);
@@ -78,7 +77,7 @@ public class UserServiceTest {
 
     @Test
     public void getAllUsers_ExpectsListOfUserDto() {
-        List<UserEntity> users = new ArrayList<>();
+        List<Users> users = new ArrayList<>();
         users.add(user);
         when(userRepository.findAll()).thenReturn(users);
 
@@ -91,7 +90,7 @@ public class UserServiceTest {
 
     @Test
     public void existsUserWithId_ExpectsTrue() {
-        Optional<UserEntity> u = Optional.of(user);
+        Optional<Users> u = Optional.of(user);
         when(userRepository.findById(anyLong())).thenReturn(u);
 
         boolean result = userService.existsUserWithId(2L);

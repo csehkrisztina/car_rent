@@ -1,10 +1,10 @@
 package com.rent.service_api_impl;
 
 import com.rent.model.dto.RentDto;
-import com.rent.model.entity.CarEntity;
-import com.rent.model.entity.LocationEntity;
-import com.rent.model.entity.RentEntity;
-import com.rent.model.entity.UserEntity;
+import com.rent.model.entity.Car;
+import com.rent.model.entity.Location;
+import com.rent.model.entity.Rent;
+import com.rent.model.entity.Users;
 import com.rent.model.repository.CarRepository;
 import com.rent.model.repository.LocationRepository;
 import com.rent.model.repository.RentRepository;
@@ -32,7 +32,7 @@ public class RentServiceImpl implements RentService {
 
     @Override
     public void saveRent(RentDto rent) {
-        RentEntity r = new RentEntity();
+        Rent r = new Rent();
 
         r.update(rent);
         r.setUser(getUserById(rent.getUserId()));
@@ -52,23 +52,23 @@ public class RentServiceImpl implements RentService {
     }
 
     @Override
-    public UserEntity getUserById(Long id) {
+    public Users getUserById(Long id) {
         return userRepository.findById(id).get();
     }
 
     @Override
-    public CarEntity getCarById(Long id) {
+    public Car getCarById(Long id) {
         return carRepository.findById(id).get();
     }
 
     @Override
-    public LocationEntity getLocationById(Long id) {
+    public Location getLocationById(Long id) {
         return locationRepository.findById(id).get();
     }
 
     @Override
     public float getCarPriceById(Long id) {
-        CarEntity c = carRepository.findById(id).get();
+        Car c = carRepository.findById(id).get();
         return c.getPrice();
     }
 
@@ -85,7 +85,7 @@ public class RentServiceImpl implements RentService {
 
     @Override
     public void setCarUsed(Long id) {
-        CarEntity car = carRepository.findById(id).get();
+        Car car = carRepository.findById(id).get();
         car.setAvailable(false);
 
         carRepository.save(car);

@@ -1,8 +1,7 @@
 package com.rent.service_api_impl;
 
 import com.rent.model.dto.UserDto;
-import com.rent.model.entity.RoleEntity;
-import com.rent.model.entity.UserEntity;
+import com.rent.model.entity.Users;
 import com.rent.model.repository.RoleRepository;
 import com.rent.model.repository.UserRepository;
 import com.rent.service_api.UserService;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(UserDto user) {
-        UserEntity u = new UserEntity();
+        Users u = new Users();
         u.update(user);
 //        u.setRole(roleRepository.findById(2L).get());
 
@@ -33,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(Long id, UserDto updatedUser) {
-        UserEntity u = userRepository.findById(id).get();
+        Users u = userRepository.findById(id).get();
         u.update(updatedUser);
 
         userRepository.save(u);
@@ -46,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUser(Long id) {
-        UserEntity u = userRepository.findById(id).get();
+        Users u = userRepository.findById(id).get();
 
         return u.toDto();
     }
