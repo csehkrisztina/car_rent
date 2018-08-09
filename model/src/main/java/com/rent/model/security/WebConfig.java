@@ -49,7 +49,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 
         Users user = new Users();
         user.setUserName("admin");
-        user.setPassword("admin"); // ar putea fi si asta criptat
+        user.setPassword("admin");
         user.setRole(role);
 
         roleRepository.save(role);
@@ -74,13 +74,14 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
         })
                 .and().authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .antMatchers("/user/add", "/login").permitAll()
+                .antMatchers("/user/add", "/login", "/user/*", "/car/*").permitAll()
                 .anyRequest().authenticated()
                 .antMatchers("/user/delete/*").hasRole("ADMIN")
-                .and().logout() //
-                .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).ignoringAntMatchers("")
+                .and().logout()
                 .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
     }
+
+    // .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).ignoringAntMatchers("")
 
     public class CsrfHeaderFilter extends OncePerRequestFilter {
 
