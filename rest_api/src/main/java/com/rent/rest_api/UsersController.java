@@ -25,6 +25,6 @@ public interface UsersController {
     @PutMapping("/user/edit/{id}")
     ResponseEntity editUser(@PathVariable("id") Long id, @RequestBody UserDto updatedUser);
 
-    @DeleteMapping("/user/delete/{id}")
+    @DeleteMapping("/admin/user/delete/{id}")
     ResponseEntity deleteUser(@PathVariable("id") Long id);
 }

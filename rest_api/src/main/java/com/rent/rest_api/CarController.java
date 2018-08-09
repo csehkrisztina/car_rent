@@ -18,12 +18,12 @@ public interface CarController {
     @GetMapping("/car/available")
     List<CarDto> getAvailableCars();
 
-    @PostMapping("/car/add")
+    @PostMapping("/admin/car/add")
     ResponseEntity addCar(@RequestBody CarDto car);
 
-    @PutMapping("/car/edit/{id}")
+    @PutMapping("/admin/car/edit/{id}")
     ResponseEntity editCar(@PathVariable Long id, @RequestBody CarDto carToUpdate);
 
-    @DeleteMapping("/car/delete/{id}")
+    @DeleteMapping("/admin/car/delete/{id}")
     ResponseEntity deleteCar(@PathVariable Long id);
 }

@@ -79,7 +79,7 @@ public class UsersControllerImpl implements UsersController {
     }
 
     @Override
-    @DeleteMapping("/user/delete/{id}")
+    @DeleteMapping("/admin/user/delete/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
         if(userService.existsUserWithId(id)) {
             userService.deleteUser(id);

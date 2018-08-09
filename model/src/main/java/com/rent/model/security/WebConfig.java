@@ -44,18 +44,18 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        Role role = new Role();
-        role.setRole("ROLE_ADMIN");
-
-        Users user = new Users();
-        user.setUserName("admin");
-        user.setPassword("admin");
-        user.setRole(role);
-
-        roleRepository.save(role);
-        userRepository.save(user);
-
-        auth.userDetailsService(userDetailsService);
+//        Role role = new Role();
+//        role.setRole("ROLE_ADMIN");
+//
+//        Users user = new Users();
+//        user.setUserName("admin");
+//        user.setPassword("admin");
+//        user.setRole(role);
+//
+//        roleRepository.save(role);
+//        userRepository.save(user);
+//
+//        auth.userDetailsService(userDetailsService);
     }
 
     @Override
@@ -63,6 +63,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 
         http.httpBasic().realmName("Rent").authenticationEntryPoint((request, response, authException) -> {
             String requestBy = request.getHeader("X-Requested-By");
+            System.out.println(requestBy);
             if(requestBy == null || requestBy.isEmpty()) {
                 HttpServletResponse httpServletResponse = response;
                 httpServletResponse.sendError(HttpServletResponse.SC_FORBIDDEN, authException.getMessage());
@@ -73,10 +74,11 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
             }
         })
                 .and().authorizeRequests()
-                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .antMatchers("/user/add", "/login", "/user/*", "/car/*").permitAll()
-                .anyRequest().authenticated()
-                .antMatchers("/user/delete/*").hasRole("ADMIN")
+                    .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                    .antMatchers("/user/edit/*").access("hasRole('ADMIN') or hasRole('USER')")
+                    .antMatchers("/admin/*").hasRole("ADMIN")
+                    .anyRequest().permitAll()
+                .and().formLogin().permitAll() // scris de mine
                 .and().logout()
                 .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
     }
