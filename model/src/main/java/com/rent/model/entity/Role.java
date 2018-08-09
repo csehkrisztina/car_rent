@@ -2,23 +2,16 @@ package com.rent.model.entity;
 
 import com.rent.model.dto.RoleDto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "role")
-public class RoleEntity {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Role extends Base {
 
     private String role;
-
-    public Long getId() {
-        return id;
-    }
+    @OneToMany
+    private List<Users> users;
 
     public String getRole() {
         return role;
@@ -30,6 +23,14 @@ public class RoleEntity {
 
     public void update(RoleDto role) {
         this.role = role.getRole();
+    }
+
+    public List<Users> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<Users> users) {
+        this.users = users;
     }
 
     public RoleDto toDto() {

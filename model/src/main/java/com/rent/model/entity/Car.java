@@ -13,26 +13,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Car")
-public class CarEntity {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Car extends Base {
 
     private String registNumber; // nr de inmatriculare
-
     private String fuelType;
-
     private float price;
-
     private String transmissionType;
-
     private String brand;
-
     private boolean available;
-
-    public Long getId() {
-        return id;
-    }
 
     public String getRegistNumber() {
         return registNumber;

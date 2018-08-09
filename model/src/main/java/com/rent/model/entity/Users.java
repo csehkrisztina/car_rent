@@ -5,30 +5,17 @@ import com.rent.model.dto.UserDto;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "User")
-public class UserEntity {
-    @Id
-    @GeneratedValue
-    private Long id;
+@Table(name = "Users")
+public class Users extends Base {
 
     private String firstName;
-
     private String lastName;
-
     private String identNumber; // personal identification number = CNP
-
     private int age;
-
     private String userName;
-
     private String password; // ar trebui criptat cumva
-
-    @ManyToOne()
-    private RoleEntity role;
-
-    public Long getId() {
-        return id;
-    }
+    @ManyToOne
+    private Role role;
 
     public String getFirstName() {
         return firstName;
@@ -78,11 +65,11 @@ public class UserEntity {
         this.age = age;
     }
 
-    public RoleEntity getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(RoleEntity role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

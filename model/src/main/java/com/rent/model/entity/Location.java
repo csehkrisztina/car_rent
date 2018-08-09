@@ -6,27 +6,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "location")
-public class LocationEntity {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Location extends Base {
 
     private String country;
-
     private String county;
-
     private String city;
-
     private String zipCode;
-
     private String street;
-
     private String number;
-
-    public Long getId() {
-        return id;
-    }
 
     public String getCountry() {
         return country;

@@ -1,7 +1,7 @@
 package com.rent.service_api_impl;
 
 import com.rent.model.dto.CarDto;
-import com.rent.model.entity.CarEntity;
+import com.rent.model.entity.Car;
 import com.rent.model.repository.CarRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,11 +30,11 @@ public class CarServiceTest {
     @Mock
     private CarRepository carRepository;
 
-    private CarEntity car;
+    private Car car;
 
     @Before
     public void SetData() {
-        car = new CarEntity();
+        car = new Car();
         car.setBrand("AUDI");
         car.setFuelType("DIESEL");
         car.setRegistNumber("BH78ASD");
@@ -43,7 +43,7 @@ public class CarServiceTest {
 
     @Test
     public void getCar_ExpectsCarDtoObject() {
-        Optional<CarEntity> c = Optional.of(car);
+        Optional<Car> c = Optional.of(car);
         when(carRepository.findById(anyLong())).thenReturn(c);
 
         CarDto result = carService.getCar(2L);
@@ -54,7 +54,7 @@ public class CarServiceTest {
 
     @Test
     public void getAllCars_ExpectsListOfCarDtos() {
-        List<CarEntity> cars = new ArrayList<>();
+        List<Car> cars = new ArrayList<>();
         cars.add(car);
         when(carRepository.findAll()).thenReturn(cars);
 
@@ -77,7 +77,7 @@ public class CarServiceTest {
 
     @Test
     public void updateCar_ExpectsRepositorySaveMethodCall() {
-        Optional<CarEntity> c = Optional.of(car);
+        Optional<Car> c = Optional.of(car);
         when(carRepository.findById(anyLong())).thenReturn(c);
 
         carService.updateCar(2L, car.toDto());
@@ -94,7 +94,7 @@ public class CarServiceTest {
 
     @Test
     public void existsCarWithId_ExpectsTrue() {
-        Optional<CarEntity> c = Optional.of(car);
+        Optional<Car> c = Optional.of(car);
         when(carRepository.findById(anyLong())).thenReturn(c);
 
         boolean result = carService.existsCarWithId(2L);

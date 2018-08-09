@@ -30,7 +30,7 @@ public class UserControllerImpl implements UserController {
     public ResponseEntity addUser(@RequestBody UserDto user) {
         if(user != null) {
             userService.saveUser(user);
-            return new ResponseEntity<String>("User added", HttpStatus.OK);
+            return new ResponseEntity<String>("Users added", HttpStatus.OK);
         }
         return new ResponseEntity<String>("Invalid input", HttpStatus.BAD_REQUEST);
     }
@@ -40,7 +40,7 @@ public class UserControllerImpl implements UserController {
     public ResponseEntity editUser(@PathVariable Long id, @RequestBody UserDto updatedUser) {
         if(userService.existsUserWithId(id)) {
             userService.updateUser(id, updatedUser);
-            return new ResponseEntity<String>("User updated", HttpStatus.OK);
+            return new ResponseEntity<String>("Users updated", HttpStatus.OK);
         }
         return new ResponseEntity<String>("Invalid input", HttpStatus.BAD_REQUEST);
     }
@@ -50,7 +50,7 @@ public class UserControllerImpl implements UserController {
     public ResponseEntity deleteUser(@PathVariable Long id) {
         if(userService.existsUserWithId(id)) {
             userService.deleteUser(id);
-            return new ResponseEntity<String>("User deleted", HttpStatus.OK);
+            return new ResponseEntity<String>("Users deleted", HttpStatus.OK);
         }
         return new ResponseEntity<String>("Invalid input", HttpStatus.BAD_REQUEST);
     }

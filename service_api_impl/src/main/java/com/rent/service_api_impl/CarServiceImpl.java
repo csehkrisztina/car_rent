@@ -1,7 +1,7 @@
 package com.rent.service_api_impl;
 
 import com.rent.model.dto.CarDto;
-import com.rent.model.entity.CarEntity;
+import com.rent.model.entity.Car;
 import com.rent.model.repository.CarRepository;
 import com.rent.service_api.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarDto getCar(Long id) {
-        CarEntity car = carRepository.findById(id).get();
+        Car car = carRepository.findById(id).get();
         return car.toDto();
     }
 
@@ -44,7 +44,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void saveCar(CarDto car) {
-        CarEntity c = new CarEntity();
+        Car c = new Car();
         c.update(car);
         c.setAvailable(true);
 
@@ -53,7 +53,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void updateCar(Long id, CarDto updatedCar) {
-        CarEntity c = carRepository.findById(id).get();
+        Car c = carRepository.findById(id).get();
         c.update(updatedCar);
 
         carRepository.save(c);

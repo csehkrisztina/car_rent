@@ -7,45 +7,33 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Rent")
-public class RentEntity {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Rent extends Base {
 
-    @ManyToOne()
-    private UserEntity user;
-
-    @ManyToOne()
-    private CarEntity car;
-
+    private float price;
+    @ManyToOne
+    private Users user;
+    @ManyToOne
+    private Car car;
+    @ManyToOne
+    private Location location;
     @Column(columnDefinition="DATE")
     private Date startDate;
-
     @Column(columnDefinition="DATE")
     private Date endDate;
 
-    private float price;
-
-    @ManyToOne()
-    private LocationEntity location;
-
-    public Long getId() {
-        return id;
-    }
-
-    public UserEntity getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 
-    public CarEntity getCar() {
+    public Car getCar() {
         return car;
     }
 
-    public void setCar(CarEntity car) {
+    public void setCar(Car car) {
         this.car = car;
     }
 
@@ -73,11 +61,11 @@ public class RentEntity {
         this.price = price;
     }
 
-    public LocationEntity getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(LocationEntity location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 

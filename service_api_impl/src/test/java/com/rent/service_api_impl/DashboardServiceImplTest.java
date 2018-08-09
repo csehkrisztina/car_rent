@@ -4,7 +4,7 @@ import com.rent.model.Brand;
 import com.rent.model.FuelType;
 import com.rent.model.TransmissionType;
 import com.rent.model.dto.LocationDto;
-import com.rent.model.entity.LocationEntity;
+import com.rent.model.entity.Location;
 import com.rent.model.repository.LocationRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,16 +29,16 @@ public class DashboardServiceImplTest {
     @Mock
     private LocationRepository locationRepository;
 
-    private LocationEntity location;
+    private Location location;
 
     @Before
     public void SetUp() {
-        location = new LocationEntity();
+        location = new Location();
     }
 
     @Test
     public void getAllLocations_ExpectsListOfLocationDto() {
-        List<LocationEntity> locations = new ArrayList<>();
+        List<Location> locations = new ArrayList<>();
         locations.add(location);
         when(locationRepository.findAll()).thenReturn(locations);
 

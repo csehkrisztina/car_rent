@@ -1,10 +1,9 @@
 package com.rent.service_api_impl;
 
 import com.rent.model.dto.RentDto;
-import com.rent.model.entity.CarEntity;
-import com.rent.model.entity.LocationEntity;
-import com.rent.model.entity.RentEntity;
-import com.rent.model.entity.UserEntity;
+import com.rent.model.entity.Car;
+import com.rent.model.entity.Location;
+import com.rent.model.entity.Users;
 import com.rent.model.repository.CarRepository;
 import com.rent.model.repository.LocationRepository;
 import com.rent.model.repository.RentRepository;
@@ -22,7 +21,6 @@ import java.util.Date;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -46,11 +44,11 @@ public class RentServiceTest {
 
     private RentDto rent;
 
-    private UserEntity user;
+    private Users user;
 
-    private CarEntity car;
+    private Car car;
 
-    private LocationEntity location;
+    private Location location;
 
     @Before
     public void SetUp() {
@@ -61,21 +59,21 @@ public class RentServiceTest {
         rent.setStartDate(new Date());
         rent.setEndDate(DateUtil.tomorrow());
 
-        user = new UserEntity();
+        user = new Users();
 
-        car = new CarEntity();
+        car = new Car();
         car.setPrice(20);
 
-        location = new LocationEntity();
+        location = new Location();
     }
 
     @Test
     public void saveRent_ExpectsRepositorySaveMethodCall() {
-        Optional<UserEntity> u = Optional.of(user);
+        Optional<Users> u = Optional.of(user);
         when(userRepository.findById(anyLong())).thenReturn(u);
-        Optional<CarEntity> c = Optional.of(car);
+        Optional<Car> c = Optional.of(car);
         when(carRepository.findById(anyLong())).thenReturn(c);
-        Optional<LocationEntity> l = Optional.of(location);
+        Optional<Location> l = Optional.of(location);
         when(locationRepository.findById(anyLong())).thenReturn(l);
 
         rentService.saveRent(rent);
