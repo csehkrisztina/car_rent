@@ -16,10 +16,10 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserControllerImplTest {
+public class UsersControllerImplTest {
 
     @InjectMocks
-    private UserControllerImpl userController;
+    private UsersControllerImpl userController;
 
     @Mock
     private UserService userService;
@@ -41,7 +41,7 @@ public class UserControllerImplTest {
 
         ResponseEntity result = userController.addUser(user);
 
-        ResponseEntity expected = new ResponseEntity<String>("Users added", HttpStatus.OK);
+        ResponseEntity expected = new ResponseEntity<String>("User added", HttpStatus.OK);
         Assert.assertEquals(expected, result);
     }
 
@@ -60,7 +60,7 @@ public class UserControllerImplTest {
 
         ResponseEntity result = userController.editUser(2L, user);
 
-        ResponseEntity expected = new ResponseEntity<String>("Users updated", HttpStatus.OK);
+        ResponseEntity expected = new ResponseEntity<String>("User updated", HttpStatus.OK);
         Assert.assertEquals(expected, result);
     }
 
@@ -79,7 +79,7 @@ public class UserControllerImplTest {
 
         ResponseEntity result = userController.deleteUser(2L);
 
-        ResponseEntity expected = new ResponseEntity<String>("Users deleted", HttpStatus.OK);
+        ResponseEntity expected = new ResponseEntity<String>("User deleted", HttpStatus.OK);
         Assert.assertEquals(expected, result);
     }
 

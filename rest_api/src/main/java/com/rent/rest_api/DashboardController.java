@@ -18,9 +18,9 @@ public interface DashboardController {
     @GetMapping("/brands")
     List<Brand> getBrands();
 
-    @GetMapping("fuel-types")
+    @GetMapping("/fuel-types")
     List<FuelType> getFuelTypes();
 
-    @GetMapping("transmission-types")
+    @GetMapping("/transmission-types")
     List<TransmissionType> getTransmissionTypes();
 }
