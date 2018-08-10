@@ -26,20 +26,19 @@ public class UsersControllerImpl implements UsersController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
+    @GetMapping(value={"/", "/login"})
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login");
+        modelAndView.setViewName("general/login");
         return modelAndView;
     }
-
 
     @RequestMapping(value="/registration", method = RequestMethod.GET)
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
         Users user = new Users();
         modelAndView.addObject("user", user);
-        modelAndView.setViewName("registration");
+        modelAndView.setViewName("general/registration");
         return modelAndView;
     }
 
@@ -53,19 +52,19 @@ public class UsersControllerImpl implements UsersController {
                             "There is already a user registered with the email provided");
         }
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("registration");
+            modelAndView.setViewName("general/registration");
         } else {
             userService.saveUser(user);
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new Users());
-            modelAndView.setViewName("registration");
+            modelAndView.setViewName("general/registration");
 
         }
         return modelAndView;
     }
 
-//    @RequestMapping(value="/admin/home", method = RequestMethod.GET)
-    public ModelAndView home(){
+    @RequestMapping(value="/admin/home", method = RequestMethod.GET)
+    public ModelAndView home_admin(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Users user = userService.findUserByEmail(auth.getName());
@@ -74,6 +73,29 @@ public class UsersControllerImpl implements UsersController {
         modelAndView.setViewName("admin/home");
         return modelAndView;
     }
+
+    @RequestMapping(value="/general/home", method = RequestMethod.GET)
+    public ModelAndView home_general(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Users user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("userName", "Welcome " + (user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")"));
+        modelAndView.addObject("adminMessage","Content Available Only for Users with User Role");
+        modelAndView.setViewName("general/home");
+        return modelAndView;
+    }
+
+//    @RequestMapping(value = "/home", method = RequestMethod.GET)
+//    public ModelAndView home() {
+//        ModelAndView modelAndView = new ModelAndView();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        if(auth.getAuthorities().toString() == "USER") {
+//            modelAndView.setViewName("general/home");
+//        } else if(auth.getAuthorities().toString() == "ADMIN"){
+//            modelAndView.setViewName("admin/home");
+//        }
+//        return modelAndView;
+//    }
 
 //    --------------------------------------------------------------------------------
 

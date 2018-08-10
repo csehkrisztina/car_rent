@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
@@ -38,6 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+//
+//    @Autowired
+//    private CustomSuccessHandler customSuccessHandler;
+
     @Value("${spring.queries.users-query}")
     private String usersQuery;
 
@@ -48,31 +54,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.
-                jdbcAuthentication()
-                .usersByUsernameQuery(usersQuery)
-                .authoritiesByUsernameQuery(rolesQuery)
-                .dataSource(dataSource)
-                .passwordEncoder(bCryptPasswordEncoder);
+            jdbcAuthentication()
+            .usersByUsernameQuery(usersQuery)
+            .authoritiesByUsernameQuery(rolesQuery)
+            .dataSource(dataSource)
+            .passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.
-                authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/registration").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-                .authenticated().and().csrf().disable().formLogin()
-                .loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/registration")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").and().exceptionHandling()
-                .accessDeniedPage("/access-denied");
+        http
+//            .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.NEVER)
+//            .and
+            .authorizeRequests()
+            .antMatchers("/").permitAll()
+            .antMatchers("/login").permitAll()
+            .antMatchers("/registration").permitAll()
+            .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+            .authenticated().and().csrf().disable().formLogin()
+            .loginPage("/login").failureUrl("/login?error=true")
+            .defaultSuccessUrl("/general/home")
+            .usernameParameter("email")
+            .passwordParameter("password")
+            .and().logout()
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .logoutSuccessUrl("/").and().exceptionHandling()
+            .accessDeniedPage("/access-denied");
     }
 
     @Override

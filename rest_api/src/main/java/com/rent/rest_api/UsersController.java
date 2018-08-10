@@ -21,9 +21,9 @@ public interface UsersController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     ModelAndView createNewUser(@Valid UserDto user, BindingResult bindingResult);
-
-    @RequestMapping(value="/admin/home", method = RequestMethod.GET)
-    ModelAndView home();
+//
+//    @RequestMapping(value="/admin/home", method = RequestMethod.GET)
+//    ModelAndView home();
 
 //    ------------------------------------------------------
 

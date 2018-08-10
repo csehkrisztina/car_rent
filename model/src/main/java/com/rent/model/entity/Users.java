@@ -42,7 +42,7 @@ public class Users {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> role;
 
-    private int active;
+    private boolean active;
 
     public Long getId() {
         return id;
@@ -104,11 +104,11 @@ public class Users {
         this.role = role;
     }
 
-    public int getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 

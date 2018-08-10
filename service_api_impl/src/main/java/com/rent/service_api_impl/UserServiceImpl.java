@@ -8,10 +8,15 @@ import com.rent.model.repository.UserRepository;
 import com.rent.service_api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -40,7 +45,7 @@ public class UserServiceImpl implements UserService {
         Users user = new Users();
         user.update(userDto);
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setActive(1);
+        user.setActive(true);
         user.setRole(new HashSet<Role>(Arrays.asList(getRoleForUser())));
 
         userRepository.save(user);

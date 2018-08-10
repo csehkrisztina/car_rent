@@ -7,7 +7,7 @@ public class UserDto {
     private int age;
     private String email;
     private String password;
-    private int active;
+    private boolean active;
 
     public String getFirstName() {
         return firstName;
@@ -57,11 +57,11 @@ public class UserDto {
         this.password = password;
     }
 
-    public int getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 

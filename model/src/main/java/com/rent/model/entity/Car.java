@@ -20,7 +20,7 @@ public class Car extends Base {
     private float price;
     private String transmissionType;
     private String brand;
-    private int available;
+    private boolean available;
 
     public String getRegistNumber() {
         return registNumber;
@@ -62,11 +62,11 @@ public class Car extends Base {
         this.brand = brand;
     }
 
-    public int getAvailable() {
+    public boolean isAvailable() {
         return available;
     }
 
-    public void setAvailable(int available) {
+    public void setAvailable(boolean available) {
         this.available = available;
     }
 
