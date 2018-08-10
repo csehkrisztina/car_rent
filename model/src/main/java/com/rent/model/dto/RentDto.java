@@ -7,17 +7,12 @@ import java.util.Date;
 public class RentDto {
 
     private Long userId;
-
     private Long carId;
-
     private Long locationId;
-
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
-
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
-
     private float price;
 
     public Long getCarId() {

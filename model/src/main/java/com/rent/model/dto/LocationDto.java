@@ -3,15 +3,10 @@ package com.rent.model.dto;
 public class LocationDto {
 
     private String country;
-
     private String county;
-
     private String city;
-
     private String zipCode;
-
     private String street;
-
     private String number;
 
     public String getCountry() {

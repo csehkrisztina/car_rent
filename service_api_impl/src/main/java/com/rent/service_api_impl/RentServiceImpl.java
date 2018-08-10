@@ -86,7 +86,7 @@ public class RentServiceImpl implements RentService {
     @Override
     public void setCarUsed(Long id) {
         Car car = carRepository.findById(id).get();
-        car.setAvailable(false);
+        car.setAvailable(0);
 
         carRepository.save(car);
     }

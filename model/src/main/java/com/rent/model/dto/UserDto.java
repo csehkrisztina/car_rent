@@ -2,16 +2,12 @@ package com.rent.model.dto;
 
 public class UserDto {
     private String firstName;
-
     private String lastName;
-
-    private String identNumber; // personal identification number = CNP
-
+    private String identNumber;
     private int age;
-
-    private String userName;
-
+    private String email;
     private String password;
+    private int active;
 
     public String getFirstName() {
         return firstName;
@@ -45,12 +41,12 @@ public class UserDto {
         this.age = age;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -59,6 +55,14 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 
     public boolean equals(Object o) {

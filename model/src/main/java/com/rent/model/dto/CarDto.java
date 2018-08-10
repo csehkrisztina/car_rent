@@ -1,17 +1,12 @@
 package com.rent.model.dto;
 
 public class CarDto {
-    private String registNumber; // nr de inmatriculare
-
+    private String registNumber;
     private String fuelType;
-
     private float price;
-
     private String transmissionType;
-
     private String brand;
-
-    private boolean available;
+    private int available;
 
     public String getRegistNumber() {
         return registNumber;
@@ -53,11 +48,11 @@ public class CarDto {
         this.brand = brand;
     }
 
-    public boolean isAvailable() {
+    public int getAvailable() {
         return available;
     }
 
-    public void setAvailable(boolean available) {
+    public void setAvailable(int available) {
         this.available = available;
     }
 

@@ -9,11 +9,10 @@ import com.rent.service_api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,13 +23,27 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Override
-    public void saveUser(UserDto user) {
-        Users u = new Users();
-        u.update(user);
-//        u.setRole(roleRepository.findById(2L).get());
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
-        userRepository.save(u);
+    @Override
+    public Users findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void saveUser(UserDto userDto) {
+
+        if(roleRepository.findAll().isEmpty())
+            createRoles();
+
+        Users user = new Users();
+        user.update(userDto);
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setActive(1);
+        user.setRole(new HashSet<Role>(Arrays.asList(getRoleForUser())));
+
+        userRepository.save(user);
     }
 
     @Override
@@ -54,28 +67,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getLoggedUser() {
-        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        List<GrantedAuthority> authorities = (List<GrantedAuthority>) SecurityContextHolder
-                .getContext().getAuthentication().getAuthorities();
-        String authority = authorities.get(0).getAuthority();
-
-        Users user = new Users();
-
-        if(Objects.equals(authority, "ROLE_ADMIN")) {
-            Role role = new Role();
-            role.setRole(authority);
-
-            user.setUserName(userName);
-            user.setRole(role);
-        } else {
-            user = userRepository.findByUserName(userName);
-        }
-
-        return user.toDto();
-    }
-
-    @Override
     public List<UserDto> getAllUsers() {
         List<UserDto> users = new ArrayList<>();
         userRepository.findAll().forEach((user)-> {
@@ -88,5 +79,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean existsUserWithId(Long id) {
         return userRepository.findById(id).isPresent();
+    }
+
+    public void createRoles() {
+        Role roleAdmin = new Role();
+        roleAdmin.setRole("ADMIN");
+
+        Role roleUser = new Role();
+        roleUser.setRole("USER");
+
+        roleRepository.save(roleAdmin);
+        roleRepository.save(roleUser);
+    }
+
+    public Role getRoleForUser() {
+        if(userRepository.findAll().isEmpty())
+            return roleRepository.findByRole("ADMIN");
+        return roleRepository.findByRole("USER");
     }
 }
