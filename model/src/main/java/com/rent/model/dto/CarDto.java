@@ -1,16 +1,11 @@
 package com.rent.model.dto;
 
 public class CarDto {
-    private String registNumber; // nr de inmatriculare
-
+    private String registNumber;
     private String fuelType;
-
     private float price;
-
     private String transmissionType;
-
     private String brand;
-
     private boolean available;
 
     public String getRegistNumber() {

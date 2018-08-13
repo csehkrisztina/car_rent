@@ -7,11 +7,17 @@ import java.util.List;
 
 @Entity
 @Table(name = "role")
-public class Role extends Base {
+public class Role {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "role_id")
+    private Long id;
     private String role;
-    @OneToMany
-    private List<Users> users;
+
+    public Long getId() {
+        return id;
+    }
 
     public String getRole() {
         return role;
@@ -23,14 +29,6 @@ public class Role extends Base {
 
     public void update(RoleDto role) {
         this.role = role.getRole();
-    }
-
-    public List<Users> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<Users> users) {
-        this.users = users;
     }
 
     public RoleDto toDto() {

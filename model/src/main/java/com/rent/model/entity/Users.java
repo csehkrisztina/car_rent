@@ -1,21 +1,52 @@
 package com.rent.model.entity;
 
 import com.rent.model.dto.UserDto;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import java.util.Set;
 
 @Entity
 @Table(name = "Users")
-public class Users extends Base {
+public class Users {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
+    private Long id;
 
     private String firstName;
+
     private String lastName;
+
+    @NotEmpty(message = "*You must set your ident number")
     private String identNumber; // personal identification number = CNP
+
+    @Min(value = 18, message = "*Age must be grather than 18")
     private int age;
-    private String userName;
-    private String password; // ar trebui criptat cumva
-    @ManyToOne
-    private Role role;
+
+    @Email(message = "*Please provide a valid Email")
+    @NotEmpty(message = "*Please provide an email")
+    private String email;
+
+    @Length(min = 5, message = "*Your password must have at least 5 characters")
+    @NotEmpty(message = "*Please provide your password")
+//    @Transient
+    private String password;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> role;
+
+    private boolean active;
+
+    public Long getId() {
+        return id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -45,12 +76,12 @@ public class Users extends Base {
         return age;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -65,12 +96,20 @@ public class Users extends Base {
         this.age = age;
     }
 
-    public Role getRole() {
+    public Set<Role> getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(Set<Role> role) {
         this.role = role;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public void update(UserDto user) {
@@ -78,7 +117,7 @@ public class Users extends Base {
         this.lastName = user.getLastName();
         this.identNumber = user.getIdentNumber();
         this.age = user.getAge();
-        this.userName = user.getUserName();
+        this.email = user.getEmail();
     }
 
     public UserDto toDto() {
@@ -87,7 +126,7 @@ public class Users extends Base {
         user.setLastName(this.lastName);
         user.setIdentNumber(this.identNumber);
         user.setAge(this.age);
-        user.setUserName(this.userName);
+        user.setEmail(this.email);
         return user;
     }
 }

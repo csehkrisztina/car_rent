@@ -1,15 +1,23 @@
 package com.rent.service_api_impl;
 
 import com.rent.model.dto.UserDto;
+import com.rent.model.entity.Role;
 import com.rent.model.entity.Users;
 import com.rent.model.repository.RoleRepository;
 import com.rent.model.repository.UserRepository;
 import com.rent.service_api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.transaction.Transactional;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,13 +28,27 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Override
-    public void saveUser(UserDto user) {
-        Users u = new Users();
-        u.update(user);
-//        u.setRole(roleRepository.findById(2L).get());
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
-        userRepository.save(u);
+    @Override
+    public Users findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void saveUser(UserDto userDto) {
+
+        if(roleRepository.findAll().isEmpty())
+            createRoles();
+
+        Users user = new Users();
+        user.update(userDto);
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setActive(true);
+        user.setRole(new HashSet<Role>(Arrays.asList(getRoleForUser())));
+
+        userRepository.save(user);
     }
 
     @Override
@@ -62,5 +84,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean existsUserWithId(Long id) {
         return userRepository.findById(id).isPresent();
+    }
+
+    public void createRoles() {
+        Role roleAdmin = new Role();
+        roleAdmin.setRole("ADMIN");
+
+        Role roleUser = new Role();
+        roleUser.setRole("USER");
+
+        roleRepository.save(roleAdmin);
+        roleRepository.save(roleUser);
+    }
+
+    public Role getRoleForUser() {
+        if(userRepository.findAll().isEmpty())
+            return roleRepository.findByRole("ADMIN");
+        return roleRepository.findByRole("USER");
     }
 }

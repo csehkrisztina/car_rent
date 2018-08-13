@@ -34,7 +34,7 @@ public class CarServiceImpl implements CarService {
     public List<CarDto> getAvailableCars() {
         List<CarDto> availableCars = new ArrayList<>();
         carRepository.findAll().forEach((car) -> {
-            if(car.isAvailable()) {
+            if(car.isAvailable() == true) {
                 availableCars.add(car.toDto());
             }
         });

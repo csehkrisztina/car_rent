@@ -51,7 +51,7 @@ public class CarControllerImpl implements CarController {
     */
 
     @Override
-    @PostMapping("car/add")
+    @PostMapping("/admin/car/add")
     public ResponseEntity addCar(@RequestBody CarDto car) {
         if(car != null) {
             carService.saveCar(car);
@@ -61,7 +61,7 @@ public class CarControllerImpl implements CarController {
     }
 
     @Override
-    @PutMapping("car/edit/{id}")
+    @PutMapping("/admin/car/edit/{id}")
     public ResponseEntity editCar(@PathVariable Long id, @RequestBody CarDto carToUpdate) {
         if(carService.existsCarWithId(id)) {
             carService.updateCar(id, carToUpdate);
@@ -71,7 +71,7 @@ public class CarControllerImpl implements CarController {
     }
 
     @Override
-    @DeleteMapping("car/delete/{id}")
+    @DeleteMapping("/admin/car/delete/{id}")
     public ResponseEntity deleteCar(@PathVariable Long id) {
         if(carService.existsCarWithId(id)) {
             carService.deleteCar(id);
