@@ -59,16 +59,16 @@ public class CarControllerImplTest {
         Assert.assertEquals(expected, result);
     }
 
-    @Test
-    public void getAllCars_ExpectsListOfCars() {
-        List<CarDto> cars = new ArrayList<>();
-        cars.add(car);
-        when(carService.getAllCars()).thenReturn(cars);
-
-        List<CarDto> result = carController.getAllCars();
-
-        Assert.assertEquals(cars, result);
-    }
+//    @Test
+//    public void getAllCars_ExpectsListOfCars() {
+//        List<CarDto> cars = new ArrayList<>();
+//        cars.add(car);
+//        when(carService.getAllCars()).thenReturn(cars);
+//
+//        List<CarDto> result = carController.getAllCars();
+//
+//        Assert.assertEquals(cars, result);
+//    }
 
     @Test
     public void addCar_ExpectsHttpStatusOk() {

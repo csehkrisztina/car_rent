@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Home Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!--<div class="container-fluid menu">-->
+
+        <!--<form th:action="@{/logout}" method="get">-->
+            <!--<button class="btn btn-md logout-btn" type="Submit" th:if="${isLoggedIn}">Logout</button>-->
+        <!--</form>-->
+
+        <!--<form th:action="@{/login}" method="get">-->
+            <!--<button class="btn btn-md login-btn" type="Submit"th:if="${isLoggedIn} == false">Login</button>-->
+        <!--</form>-->
+
+        <!--<form th:action="@{/registration}" method="get">-->
+            <!--<button class="btn btn-md register-btn" type="Submit">Registration</button>-->
+        <!--</form>-->
+
+        <!--<form th:action="@{/admin/dashboard}" method="get">-->
+            <!--<button class="btn btn-md admin-dashboard-btn" type="Submit"  th:if="${isAdmin}">Admin dashboard</button>-->
+        <!--</form>-->
+
+        <!--<span id="logo">Car Rent</span>-->
+
+    <!--</div>-->
+
+    <div class="container-fluid menu">
+        <form th:action="@{/logout}" method="get">
+            <button class="btn btn-md logout-btn" type="Submit" th:if="${isLoggedIn}">Logout</button>
+        </form>
+
+        <form th:action="@{/login}" method="get">
+            <button class="btn btn-md login-btn" type="Submit"th:if="${isLoggedIn} == false">Login</button>
+        </form>
+
+        <form th:action="@{/registration}" method="get">
+            <button class="btn btn-md register-btn" type="Submit">Registration</button>
+        </form>
+
+        <form th:action="@{/admin/dashboard}" method="get">
+            <button class="btn btn-md admin-dashboard-btn" type="Submit"  th:if="${isAdmin}">Admin dashboard</button>
+        </form>
+
+        <span id="logo">Car Rent</span>
+    </div>
+
+    <div class="container">
+        <div th:each="car : ${cars}" class="row car-detail-row">
+            <div class="car-detail col-lg-6">
+                <span class="detail-label col-lg-4">Brand</span>
+                <p th:text="${car.brand}" class="detail-data col-lg-8"></p>
+
+                <span class="detail-label col-lg-4">Register number</span>
+                <p th:text="${car.registNumber}" class="detail-data col-lg-8"></p>
+
+                <span class="detail-label col-lg-4">Transmission type</span>
+                <p th:text="${car.transmissionType}" class="detail-data col-lg-8"></p>
+
+                <span class="detail-label col-lg-4">Fuel type</span>
+                <p th:text="${car.fuelType}" class="detail-data col-lg-8"></p>
+
+                <span class="detail-label col-lg-4">Price (RON)</span>
+                <p th:text="${car.price}" class="detail-data col-lg-8"></p>
+
+                <span th:if="${car.available} == true" class="car-available">Available</span>
+                <span th:if="${car.available} == false" class="car-not-available">Not available</span>
+                <button class="btn btn-md rent-detail-btn">Rent Detail</button>
+            </div>
+
+            <div class="col-lg-6 rent-detail">
+                <p>Rent details</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

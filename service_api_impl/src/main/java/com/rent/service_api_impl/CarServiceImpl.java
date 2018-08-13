@@ -23,9 +23,9 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<CarDto> getAllCars() {
-        List<CarDto> cars = new ArrayList<>();
-        carRepository.findAll().forEach((car) -> cars.add(car.toDto()));
+    public List<Car> getAllCars() {
+        List<Car> cars = new ArrayList<>();
+        carRepository.findAll().forEach((car) -> cars.add(car));
 
         return cars;
     }

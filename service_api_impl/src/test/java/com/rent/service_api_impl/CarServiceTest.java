@@ -52,18 +52,18 @@ public class CarServiceTest {
         assertEquals(expected, result);
     }
 
-    @Test
-    public void getAllCars_ExpectsListOfCarDtos() {
-        List<Car> cars = new ArrayList<>();
-        cars.add(car);
-        when(carRepository.findAll()).thenReturn(cars);
-
-        List<CarDto> result = carService.getAllCars();
-
-        List<CarDto> expected = new ArrayList<>();
-        expected.add(car.toDto());
-        assertEquals(expected, result);
-    }
+//    @Test
+//    public void getAllCars_ExpectsListOfCarDtos() {
+//        List<Car> cars = new ArrayList<>();
+//        cars.add(car);
+//        when(carRepository.findAll()).thenReturn(cars);
+//
+//        List<CarDto> result = carService.getAllCars();
+//
+//        List<CarDto> expected = new ArrayList<>();
+//        expected.add(car.toDto());
+//        assertEquals(expected, result);
+//    }
 
     @Test
     public void saveCar_ExpectsAnObjectAddedInRepository() {

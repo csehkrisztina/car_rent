@@ -1,6 +1,7 @@
 package com.rent.rest_api;
 
 import com.rent.model.dto.CarDto;
+import com.rent.model.entity.Car;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ public interface CarController {
     ResponseEntity getCar(@PathVariable Long id);
 
     @GetMapping("/car/list")
-    List<CarDto> getAllCars();
+    List<Car> getAllCars();
 
     @GetMapping("/car/available")
     List<CarDto> getAvailableCars();
