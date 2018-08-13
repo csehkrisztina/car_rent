@@ -22,21 +22,6 @@
     color: #FFFFFF;
 }
 
-.login-btn {
-    /*background-color: #c4f914;*/
-    right: 0;
-}
-
-.register-btn {
-    /*background-color: #dddddd;*/
-    right: 130px;
-}
-
-.logout-btn {
-    /*background-color: #ffbf00;*/
-    right: 0;
-}
-
 #logo {
     color: #f7f7f7;
     font-size: 20px;

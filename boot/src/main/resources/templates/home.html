@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Home Page</title>
+    <title>Car Rent</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -12,46 +12,30 @@
 </head>
 
 <body>
-    <!--<div class="container-fluid menu">-->
-
-        <!--<form th:action="@{/logout}" method="get">-->
-            <!--<button class="btn btn-md logout-btn" type="Submit" th:if="${isLoggedIn}">Logout</button>-->
-        <!--</form>-->
-
-        <!--<form th:action="@{/login}" method="get">-->
-            <!--<button class="btn btn-md login-btn" type="Submit"th:if="${isLoggedIn} == false">Login</button>-->
-        <!--</form>-->
-
-        <!--<form th:action="@{/registration}" method="get">-->
-            <!--<button class="btn btn-md register-btn" type="Submit">Registration</button>-->
-        <!--</form>-->
-
-        <!--<form th:action="@{/admin/dashboard}" method="get">-->
-            <!--<button class="btn btn-md admin-dashboard-btn" type="Submit"  th:if="${isAdmin}">Admin dashboard</button>-->
-        <!--</form>-->
-
-        <!--<span id="logo">Car Rent</span>-->
-
-    <!--</div>-->
-
     <div class="container-fluid menu">
+
         <form th:action="@{/logout}" method="get">
-            <button class="btn btn-md logout-btn" type="Submit" th:if="${isLoggedIn}">Logout</button>
+            <button class="btn btn-md" type="Submit" th:if="${isLoggedIn}">Logout</button>
         </form>
 
         <form th:action="@{/login}" method="get">
-            <button class="btn btn-md login-btn" type="Submit"th:if="${isLoggedIn} == false">Login</button>
+            <button class="btn btn-md" type="Submit" th:if="${isLoggedIn} == false">Login</button>
         </form>
 
         <form th:action="@{/registration}" method="get">
-            <button class="btn btn-md register-btn" type="Submit">Registration</button>
+            <button class="btn btn-md" type="Submit" th:if="${isLoggedIn} == false">Registration</button>
         </form>
 
         <form th:action="@{/admin/dashboard}" method="get">
-            <button class="btn btn-md admin-dashboard-btn" type="Submit"  th:if="${isAdmin}">Admin dashboard</button>
+            <button class="btn btn-md" type="Submit"  th:if="${isAdmin}">Admin dashboard</button>
+        </form>
+
+        <form th:action="@{/my-account}" method="get">
+            <button class="btn btn-md" type="Submit" th:if="${isLoggedIn}">My account</button>
         </form>
 
         <span id="logo">Car Rent</span>
+
     </div>
 
     <div class="container">

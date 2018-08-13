@@ -4,57 +4,64 @@ import com.rent.model.dto.UserDto;
 import com.rent.model.entity.Users;
 import com.rent.rest_api.UsersController;
 import com.rent.service_api.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 @RestController
 public class UsersControllerImpl implements UsersController {
 
-
     @Autowired
     private UserService userService;
 
-    /*
-        example
-        {
-            "firstName": "first",
-            "lastName": "last",
-            "identNumber": "aefneklgnlseingl",
-            "age": 34,
-            "userName": "f_l"
-        }
-    */
     @Override
-    @PostMapping("/user/add")
-    public ResponseEntity addUser(@RequestBody UserDto user) {
-        if(user != null) {
-            userService.saveUser(user);
-            return new ResponseEntity<String>("User added", HttpStatus.OK);
-        }
-        return new ResponseEntity<String>("Invalid input", HttpStatus.BAD_REQUEST);
+    @RequestMapping(value = "/my-account", method = RequestMethod.GET)
+    public ModelAndView editUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Users user = userService.findUserByEmail(auth.getName());
+
+        boolean isAdmin = userService.isAdmin();
+        boolean isUserLoggedIn = userService.isLoggedInUser();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("isAdmin", isAdmin);
+        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
+        modelAndView.setViewName("my-account");
+
+        return modelAndView;
     }
 
     @Override
-    @PutMapping("/user/edit/{id}")
-    public ResponseEntity editUser(@PathVariable Long id, @RequestBody UserDto updatedUser) {
-        if(userService.existsUserWithId(id)) {
-            userService.updateUser(id, updatedUser);
-            return new ResponseEntity<String>("User updated", HttpStatus.OK);
-        }
-        return new ResponseEntity<String>("Invalid input", HttpStatus.BAD_REQUEST);
+    @RequestMapping(value = "/my-account", method = RequestMethod.POST,
+            headers = "content-type=application/x-www-form-urlencoded")
+    public ModelAndView editUser(@ModelAttribute UserDto updatedUser) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Users user = userService.findUserByEmail(auth.getName());
+
+        userService.updateUser(user.getId(), updatedUser);
+
+        boolean isAdmin = userService.isAdmin();
+        boolean isUserLoggedIn = userService.isLoggedInUser();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("user", userService.findUserByEmail(updatedUser.getEmail()));
+        modelAndView.addObject("isAdmin", isAdmin);
+        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
+        modelAndView.addObject("successMessage", "The user has been updated successfully");
+        modelAndView.setViewName("my-account");
+
+        return modelAndView;
+    }
+
+    @Override
+    @RequestMapping(value = "/user/all", method = RequestMethod.GET)
+    public ModelAndView getUsers() {
+        return null;
     }
 
     @Override

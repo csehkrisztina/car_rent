@@ -7,6 +7,7 @@ import com.rent.model.repository.RoleRepository;
 import com.rent.model.repository.UserRepository;
 import com.rent.service_api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -56,6 +57,10 @@ public class UserServiceImpl implements UserService {
         Users u = userRepository.findById(id).get();
         u.update(updatedUser);
 
+        if(updatedUser.getPassword() != "") {
+            u.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+        }
+
         userRepository.save(u);
     }
 
@@ -84,6 +89,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean existsUserWithId(Long id) {
         return userRepository.findById(id).isPresent();
+    }
+
+    @Override
+    public boolean isAdmin() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        return auth.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"));
+    }
+
+    @Override
+    public boolean isLoggedInUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        return (auth.getPrincipal() == null) ? false : true;
     }
 
     public void createRoles() {
