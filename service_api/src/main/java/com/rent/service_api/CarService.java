@@ -4,6 +4,7 @@ import com.rent.model.Brand;
 import com.rent.model.FuelType;
 import com.rent.model.TransmissionType;
 import com.rent.model.dto.CarDto;
+import com.rent.model.entity.Car;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface CarService {
 
     CarDto getCar(Long id);
 
-    List<CarDto> getAllCars();
+    List<Car> getAllCars();
 
     List<CarDto> getAvailableCars();
 

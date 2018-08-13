@@ -2,6 +2,7 @@ package com.rent.rest_api_impl;
 
 import com.rent.model.Brand;
 import com.rent.model.dto.CarDto;
+import com.rent.model.entity.Car;
 import com.rent.rest_api.CarController;
 import com.rent.service_api.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class CarControllerImpl implements CarController {
 
     @Override
     @GetMapping("car/list")
-    public List<CarDto> getAllCars() {
+    public List<Car> getAllCars() {
         return carService.getAllCars();
     }
 

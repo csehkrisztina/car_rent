@@ -1,0 +1,37 @@
+.car-detail-row {
+    background-color: #ececec;
+    box-shadow: 3px 3px 3px #b9b7b7;
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.detail-label {
+    font-weight: bold;
+    display: inline-block;
+}
+
+.detail-data {
+    display: inline-block;
+}
+
+.car-available, .car-not-available {
+    padding: 9px 12px;
+    border-radius: 3px;
+}
+
+.car-available {
+    background-color: #7ae27a;
+}
+
+.car-not-available {
+    background-color: #fb4e4e;
+}
+
+.rent-detail-btn {
+    background-color: #969595;
+}
+
+.rent-detail {
+    visibility: hidden;
+}
