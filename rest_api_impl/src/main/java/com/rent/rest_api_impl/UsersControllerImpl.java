@@ -12,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @RestController
 public class UsersControllerImpl implements UsersController {
 
@@ -61,16 +63,41 @@ public class UsersControllerImpl implements UsersController {
     @Override
     @RequestMapping(value = "/user/all", method = RequestMethod.GET)
     public ModelAndView getUsers() {
-        return null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        List<UserDto> users = userService.getAllUsers();
+
+        boolean isAdmin = userService.isAdmin();
+        boolean isUserLoggedIn = userService.isLoggedInUser();
+
+        List<String> roles = (List) auth.getAuthorities();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("users", users);
+        modelAndView.addObject("role", roles.get(0));
+        modelAndView.addObject("isAdmin", isAdmin);
+        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
+        modelAndView.setViewName("users");
+
+        return modelAndView;
     }
 
     @Override
-    @DeleteMapping("/admin/user/delete/{id}")
-    public ResponseEntity deleteUser(@PathVariable Long id) {
-        if(userService.existsUserWithId(id)) {
-            userService.deleteUser(id);
-            return new ResponseEntity<String>("User deleted", HttpStatus.OK);
-        }
-        return new ResponseEntity<String>("Invalid input", HttpStatus.BAD_REQUEST);
+    @RequestMapping(value = "/admin/user/delete", method = RequestMethod.GET)
+    public ModelAndView deleteUser(@PathVariable String email) {
+        userService.deleteUser(email);
+
+        boolean isAdmin = userService.isAdmin();
+        boolean isUserLoggedIn = userService.isLoggedInUser();
+
+        List<UserDto> users = userService.getAllUsers();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("users", users);
+        modelAndView.addObject("isAdmin", isAdmin);
+        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
+        modelAndView.addObject("message", "User with e-mail '" + email + "' was deleted");
+        modelAndView.setViewName("users");
+
+        return modelAndView;
     }
 }

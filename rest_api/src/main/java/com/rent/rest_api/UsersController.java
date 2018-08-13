@@ -18,6 +18,6 @@ public interface UsersController {
     @RequestMapping(value = "/user/all", method = RequestMethod.GET)
     ModelAndView getUsers();
 
-    @DeleteMapping("/admin/user/delete/{id}")
-    ResponseEntity deleteUser(@PathVariable("id") Long id);
+    @RequestMapping(value = "/admin/user/delete", method = RequestMethod.GET)
+    ModelAndView deleteUser(@PathVariable String email);
 }
