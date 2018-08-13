@@ -56,13 +56,13 @@ public class UserServiceTest {
         verify(userRepository, times(1)).save(user);
     }
 
-    @Test
-    public void deleteUser_ExpectsRepositoryDeleteByIdMethodCall() {
-
-        userService.deleteUser(2L);
-
-        verify(userRepository, times(1)).deleteById(anyLong());
-    }
+//    @Test
+//    public void deleteUser_ExpectsRepositoryDeleteByIdMethodCall() {
+//
+//        userService.deleteUser(2L);
+//
+//        verify(userRepository, times(1)).deleteById(anyLong());
+//    }
 
     @Test
     public void getUser_ExpectsuserDtoObject() {

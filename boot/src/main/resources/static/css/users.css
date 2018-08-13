@@ -1,0 +1,28 @@
+table#users {
+    width: 100%;
+}
+
+thead {
+    background-color: #c4fa14;
+    font-weight: bold;
+}
+
+tr {
+    border: 1px solid #dadada;
+}
+
+td {
+    padding: 10px !important;
+}
+
+.edit-btn {
+    background-color: #5987f5;
+}
+
+.delete-btn {
+    background-color: #ff7a7a;
+}
+
+.action {
+    display: inline-block;
+}

@@ -4,7 +4,6 @@
 
 <head>
     <title>Admin Page</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -18,8 +17,12 @@
             <button class="btn btn-md logout-btn" type="Submit">Logout</button>
         </form>
 
-        <form th:action="@{/admin/dashboard}" method="get">
-            <button class="btn btn-md admin-dashboard-btn" type="Submit">Admin dashboard</button>
+        <form th:action="@{/user/all}" method="get">
+            <button class="btn btn-md home-btn" type="Submit">Users</button>
+        </form>
+
+        <form th:action="@{/}" method="get">
+            <button class="btn btn-md home-btn" type="Submit">Cars</button>
         </form>
 
         <form th:action="@{/}" method="get">
