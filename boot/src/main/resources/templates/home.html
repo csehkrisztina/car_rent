@@ -13,29 +13,15 @@
 
 <body>
     <div class="container-fluid menu">
-
-        <form th:action="@{/logout}" method="get">
-            <button class="btn btn-md" type="Submit" th:if="${isLoggedIn}">Logout</button>
-        </form>
-
-        <form th:action="@{/login}" method="get">
-            <button class="btn btn-md" type="Submit" th:if="${isLoggedIn} == false">Login</button>
-        </form>
-
-        <form th:action="@{/registration}" method="get">
-            <button class="btn btn-md" type="Submit" th:if="${isLoggedIn} == false">Registration</button>
-        </form>
-
-        <form th:action="@{/admin/dashboard}" method="get">
-            <button class="btn btn-md" type="Submit"  th:if="${isAdmin}">Admin dashboard</button>
-        </form>
-
-        <form th:action="@{/my-account}" method="get">
-            <button class="btn btn-md" type="Submit" th:if="${isLoggedIn}">My account</button>
-        </form>
+        <a class="btn btn-md" th:href="@{/logout}" th:if="${isLoggedIn}">Logout</a>
+        <a class="btn btn-md" th:href="@{/login}" th:if="${isLoggedIn} == false">Login</a>
+        <a class="btn btn-md" th:href="@{/registration}" th:if="${isLoggedIn} == false">Registration</a>
+        <a class="btn btn-md" th:href="@{/user/edit}" th:if="${isLoggedIn}">My account</a>
+        <a class="btn btn-md" th:href="@{/admin/user/all}" th:if="${isAdmin}">Users</a>
+        <a class="btn btn-md" th:href="@{/admin/car/all}" th:if="${isAdmin}">Cars</a>
+        <a class="btn btn-md" th:href="@{/}">Home</a>
 
         <span id="logo">Car Rent</span>
-
     </div>
 
     <div class="container">
@@ -58,11 +44,11 @@
 
                 <span th:if="${car.available} == true" class="car-available">Available</span>
                 <span th:if="${car.available} == false" class="car-not-available">Not available</span>
-                <button class="btn btn-md rent-detail-btn">Rent Detail</button>
+                <button class="btn btn-md rent-detail-btn">Rent</button>
             </div>
 
-            <div class="col-lg-6 rent-detail">
-                <p>Rent details</p>
+            <div class="col-lg-6 rent">
+                <p>Rent</p>
             </div>
         </div>
     </div>

@@ -3,9 +3,10 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Car Rent</title>
+    <title>Admin | Users</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/users.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/general.css}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -13,33 +14,28 @@
 
 <body>
     <div class="container-fluid menu">
-
-        <form th:action="@{/logout}" method="get">
-            <button class="btn btn-md logout-btn" type="Submit">Logout</button>
-        </form>
-
-        <form th:action="@{/user/all}" method="get">
-            <button class="btn btn-md home-btn" type="Submit">Users</button>
-        </form>
-
-        <form th:action="@{/}" method="get">
-            <button class="btn btn-md home-btn" type="Submit">Cars</button>
-        </form>
-
-        <form th:action="@{/}" method="get">
-            <button class="btn btn-md home-btn" type="Submit">Home</button>
-        </form>
+        <a class="btn btn-md" th:href="@{/logout}" th:if="${isLoggedIn}">Logout</a>
+        <a class="btn btn-md" th:href="@{/login}" th:if="${isLoggedIn} == false">Login</a>
+        <a class="btn btn-md" th:href="@{/registration}" th:if="${isLoggedIn} == false">Registration</a>
+        <a class="btn btn-md" th:href="@{/user/edit}" th:if="${isLoggedIn}">My account</a>
+        <a class="btn btn-md" th:href="@{/admin/user/all}" th:if="${isAdmin}">Users</a>
+        <a class="btn btn-md" th:href="@{/admin/car/all}" th:if="${isAdmin}">Cars</a>
+        <a class="btn btn-md" th:href="@{/}">Home</a>
 
         <span id="logo">Car Rent</span>
 
     </div>
 
     <div class="container">
-        <span th:text="${message}"></span>
+        <div class="alert alert-success alert-dismissable" th:if="${message}">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <p th:text="${message}" />
+        </div>
+        <h2>Users</h2>
         <table id="users">
             <thead>
                 <tr>
-                    <td></td>
+                    <td>Index</td>
                     <td>E-mail</td>
                     <td>Role</td>
                     <td>Actions</td>
@@ -47,11 +43,11 @@
             </thead>
             <tbody>
                 <tr th:each="user,iterator : ${users}">
-                    <td th:text="${iterator.index}"></td>
+                    <td th:text="${iterator.index + 1}"></td>
                     <td th:text="${user.email}"></td>
-                    <td th:text="${role}"></td>
+                    <td th:text="${user.role}"></td>
                     <td>
-                        <form th:action="@{/my-account}" method="get" class="action">
+                        <form th:action="@{/user/edit}" method="get" class="action">
                             <input type="hidden" name="email" th:value="${user.email}"/>
                             <button class="btn btn-md edit-btn" type="Submit">Edit</button>
                         </form>

@@ -8,6 +8,7 @@ public class UserDto {
     private String email;
     private String password;
     private boolean active;
+    private String role;
 
     public String getFirstName() {
         return firstName;
@@ -63,6 +64,14 @@ public class UserDto {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public boolean equals(Object o) {

@@ -1,30 +1,32 @@
 package com.rent.rest_api;
 
 import com.rent.model.dto.CarDto;
-import com.rent.model.entity.Car;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @RestController
 public interface CarController {
 
-    @GetMapping("/car/{id}")
-    ResponseEntity getCar(@PathVariable Long id);
-
-    @GetMapping("/car/list")
-    List<Car> getAllCars();
-
-    @GetMapping("/car/available")
+    @RequestMapping(value = "/car/available", method = RequestMethod.GET)
     List<CarDto> getAvailableCars();
 
-    @PostMapping("/admin/car/add")
-    ResponseEntity addCar(@RequestBody CarDto car);
+    @RequestMapping(value = "/admin/car/add", method = RequestMethod.GET)
+    ModelAndView addCar();
 
-    @PutMapping("/admin/car/edit/{id}")
-    ResponseEntity editCar(@PathVariable Long id, @RequestBody CarDto carToUpdate);
+    @RequestMapping(value = "/admin/car/add", method = RequestMethod.POST)
+    ModelAndView addCar(@RequestBody CarDto car);
 
-    @DeleteMapping("/admin/car/delete/{id}")
-    ResponseEntity deleteCar(@PathVariable Long id);
+    @RequestMapping(value = "/admin/car/all", method = RequestMethod.GET)
+    ModelAndView getAllCars();
+
+    @RequestMapping(value = "/admin/car/edit", method = RequestMethod.GET)
+    ModelAndView editCar();
+
+    @RequestMapping(value = "/admin/car/edit", method = RequestMethod.POST)
+    ModelAndView editCar(@RequestBody CarDto carToUpdate);
+
+    @DeleteMapping("/admin/car/delete")
+    ModelAndView deleteCar(@RequestParam String registNumber);
 }

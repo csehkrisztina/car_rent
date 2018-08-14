@@ -2,8 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Registration Form</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+    <title>Admin | Add car</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -12,7 +11,7 @@
 <body>
 <div class="container-fluid menu">
     <a class="btn btn-md" th:href="@{/logout}" th:if="${isLoggedIn}">Logout</a>
-    <a class="btn btn-md" th:href="@{/login}">Login</a>
+    <a class="btn btn-md" th:href="@{/login}" th:if="${isLoggedIn} == false">Login</a>
     <a class="btn btn-md" th:href="@{/registration}" th:if="${isLoggedIn} == false">Registration</a>
     <a class="btn btn-md" th:href="@{/user/edit}" th:if="${isLoggedIn}">My account</a>
     <a class="btn btn-md" th:href="@{/admin/user/all}" th:if="${isAdmin}">Users</a>
@@ -20,7 +19,6 @@
     <a class="btn btn-md" th:href="@{/}">Home</a>
 
     <span id="logo">Car Rent</span>
-
 </div>
 
 <div class="container">
@@ -33,59 +31,55 @@
 
         <div class="col-md-6 col-md-offset-3">
 
-            <h2>Registration Form</h2>
+            <h2>Add car</h2>
 
-            <form autocomplete="off" action="#" th:action="@{/registration}" th:object="${user}" method="post"
+            <form autocomplete="off" action="#" th:action="@{/admin/car/add}" th:object="${car}" method="post"
                   class="form-horizontal" role="form">
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
-                               class="validation-message"></label>
-                        <input type="text" th:field="*{firstName}" placeholder="First Name" class="form-control" />
+                        <label>Brand</label>
+                        <select class="form-control" th:field="*{brand}">
+                            <option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}"></option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-                                  class="validation-message"></label>
-                        <input type="text" th:field="*{lastName}" placeholder="Last Name" class="form-control" />
+                        <label>Registration number</label>
+                        <input type="text" th:field="*{registNumber}" placeholder="Registration number" class="form-control" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label	th:if="${#fields.hasErrors('identNumber')}" th:errors="*{identNumber}"
-                                  class="validation-message"></label>
-                        <input type="text" th:field="*{identNumber}" placeholder="Ident number" class="form-control" />
+                        <label>Fuel type</label>
+                        <select class="form-control" th:field="*{fuelType}">
+                            <option th:each="fuel : ${fuelTypes}" th:value="${fuel}" th:text="${fuel}"></option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label	th:if="${#fields.hasErrors('age')}" th:errors="*{age}"
-                                  class="validation-message"></label>
-                        <input type="number" th:field="*{age}" placeholder="Age" class="form-control" />
+                        <label>Transmission type</label>
+                        <select class="form-control" th:field="*{transmissionType}">
+                            <option th:each="type : ${transmissionTypes}" th:value="${type}" th:text="${type}"></option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></label>
-                        <input type="text" th:field="*{email}" placeholder="Email" class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-message"></label>
-                        <input type="password" th:field="*{password}" placeholder="Password" class="form-control" />
+                        <label>Price</label>
+                        <input type="number" step="any" th:field="*{price}" placeholder="Price" class="form-control" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        <button type="submit" class="btn btn-primary btn-block">Save car</button>
                     </div>
                 </div>
 

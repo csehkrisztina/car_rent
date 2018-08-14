@@ -41,23 +41,23 @@ public class RentControllerImplTest {
         rent.setCarId(2L);
     }
 
-    @Test
-    public void rentACar_ExpectsHttpStatusOk() {
-        when(carService.existsCarWithId(anyLong())).thenReturn(true);
-        when(userService.existsUserWithId(anyLong())).thenReturn(true);
-
-        ResponseEntity result = rentController.rentACar(rent);
-
-        ResponseEntity expected = new ResponseEntity<String>("Rent saved", HttpStatus.OK);
-        Assert.assertEquals(expected, result);
-    }
-
-    @Test
-    public void rentACar_ExpectsHttpStatusBadRequest() {
-
-        ResponseEntity result = rentController.rentACar(rent);
-
-        ResponseEntity expected = new ResponseEntity<String>("Invalid input", HttpStatus.BAD_REQUEST);
-        Assert.assertEquals(expected, result);
-    }
+//    @Test
+//    public void rentACar_ExpectsHttpStatusOk() {
+//        when(carService.existsCarWithId(anyLong())).thenReturn(true);
+//        when(userService.existsUserWithId(anyLong())).thenReturn(true);
+//
+//        ResponseEntity result = rentController.rentACar(rent);
+//
+//        ResponseEntity expected = new ResponseEntity<String>("Rent saved", HttpStatus.OK);
+//        Assert.assertEquals(expected, result);
+//    }
+//
+//    @Test
+//    public void rentACar_ExpectsHttpStatusBadRequest() {
+//
+//        ResponseEntity result = rentController.rentACar(rent);
+//
+//        ResponseEntity expected = new ResponseEntity<String>("Invalid input", HttpStatus.BAD_REQUEST);
+//        Assert.assertEquals(expected, result);
+//    }
 }

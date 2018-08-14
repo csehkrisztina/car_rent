@@ -85,6 +85,7 @@ public class Car extends Base {
         car.setPrice(this.price);
         car.setTransmissionType(this.transmissionType);
         car.setBrand(this.brand);
+        car.setAvailable(this.isAvailable());
         return car;
     }
 }

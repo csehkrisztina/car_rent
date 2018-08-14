@@ -17,6 +17,7 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -35,7 +36,7 @@ public class UserServiceTest {
     @Before
     public void SetUp() {
         user = new Users();
-
+        user.setEmail("test@yahoo.com");
     }
 
     @Test
@@ -58,8 +59,9 @@ public class UserServiceTest {
 
 //    @Test
 //    public void deleteUser_ExpectsRepositoryDeleteByIdMethodCall() {
+//        when(userRepository.findByEmail(anyString())).thenReturn(user);
 //
-//        userService.deleteUser(2L);
+//        userService.deleteUser(user.getEmail());
 //
 //        verify(userRepository, times(1)).deleteById(anyLong());
 //    }
