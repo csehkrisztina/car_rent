@@ -5,7 +5,6 @@ import com.rent.model.FuelType;
 import com.rent.model.TransmissionType;
 import com.rent.model.dto.LocationDto;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 

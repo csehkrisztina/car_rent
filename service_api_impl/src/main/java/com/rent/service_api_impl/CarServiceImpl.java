@@ -23,9 +23,9 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> getAllCars() {
-        List<Car> cars = new ArrayList<>();
-        carRepository.findAll().forEach((car) -> cars.add(car));
+    public List<CarDto> getAllCars() {
+        List<CarDto> cars = new ArrayList<>();
+        carRepository.findAll().forEach((car) -> cars.add(car.toDto()));
 
         return cars;
     }
@@ -60,8 +60,9 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void deleteCar(Long id) {
-        carRepository.deleteById(id);
+    public void deleteCar(String registNumber) {
+        Car car = carRepository.findByRegistNumber(registNumber);
+        carRepository.delete(car);
     }
 
     @Override

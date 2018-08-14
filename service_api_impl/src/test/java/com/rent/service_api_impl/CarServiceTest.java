@@ -84,13 +84,13 @@ public class CarServiceTest {
         verify(carRepository, times(1)).save(car);
     }
 
-    @Test
-    public void deleteCar_ExpectsRepositoryDeleteByIdMEthodCall() {
-
-        carService.deleteCar(2L);
-
-        verify(carRepository, times(1)).deleteById(2L);
-    }
+//    @Test
+//    public void deleteCar_ExpectsRepositoryDeleteByIdMEthodCall() {
+//
+//        carService.deleteCar(2L);
+//
+//        verify(carRepository, times(1)).deleteById(2L);
+//    }
 
     @Test
     public void existsCarWithId_ExpectsTrue() {

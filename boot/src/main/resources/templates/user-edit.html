@@ -11,30 +11,13 @@
 
 <body>
     <div class="container-fluid menu">
-
-        <form th:action="@{/logout}" method="get">
-            <button class="btn btn-md" type="Submit" th:if="${isLoggedIn}">Logout</button>
-        </form>
-
-        <form th:action="@{/login}" method="get">
-            <button class="btn btn-md" type="Submit" th:if="${isLoggedIn} == false">Login</button>
-        </form>
-
-        <form th:action="@{/registration}" method="get">
-            <button class="btn btn-md" type="Submit" th:if="${isLoggedIn} == false">Registration</button>
-        </form>
-
-        <form th:action="@{/admin/dashboard}" method="get">
-            <button class="btn btn-md" type="Submit"  th:if="${isAdmin}">Admin dashboard</button>
-        </form>
-
-        <form th:action="@{/user/edit}" method="get">
-            <button class="btn btn-md" type="Submit" th:if="${isLoggedIn}">My account</button>
-        </form>
-
-        <form th:action="@{/}" method="get">
-            <button class="btn btn-md home-btn" type="Submit">Home</button>
-        </form>
+        <a class="btn btn-md" th:href="@{/logout}" th:if="${isLoggedIn}">Logout</a>
+        <a class="btn btn-md" th:href="@{/login}" th:if="${isLoggedIn} == false">Login</a>
+        <a class="btn btn-md" th:href="@{/registration}" th:if="${isLoggedIn} == false">Registration</a>
+        <a class="btn btn-md" th:href="@{/user/edit}" th:if="${isLoggedIn}">My account</a>
+        <a class="btn btn-md" th:href="@{/admin/user/all}" th:if="${isAdmin}">Users</a>
+        <a class="btn btn-md" th:href="@{/admin/car/all}" th:if="${isAdmin}">Cars</a>
+        <a class="btn btn-md" th:href="@{/}">Home</a>
 
         <span id="logo">Car Rent</span>
 
@@ -42,10 +25,18 @@
 
     <div class="container">
         <div class="row">
+            <div class="alert alert-success alert-dismissable" th:if="${successMessage}">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <p th:text="${successMessage}" />
+            </div>
+
             <div class="col-md-6 col-md-offset-3">
-                <form action="#" th:action="@{/my-account}" th:object="${user}" method="post"
+
+                <h2 th:text="${title}" />
+
+                <form action="#" th:action="@{/user/edit}" th:object="${user}" method="post"
                       class="form-horizontal" role="form">
-                    <h2>Edit my account</h2>
+
                     <div class="form-group">
                         <div class="col-sm-9">
                             <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
@@ -103,8 +94,6 @@
                             <button type="submit" class="btn btn-primary btn-block">Save</button>
                         </div>
                     </div>
-
-                    <span th:utext="${successMessage}"></span>
 
                 </form>
             </div>

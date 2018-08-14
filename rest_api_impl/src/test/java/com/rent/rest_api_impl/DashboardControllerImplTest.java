@@ -36,34 +36,4 @@ public class DashboardControllerImplTest {
         List<LocationDto> expected = new ArrayList<>();
         Assert.assertEquals(expected, result);
     }
-
-    @Test
-    public void getBrands_ExpectsListOfBrands() {
-        when(dashboardService.getAllBrands()).thenReturn(new ArrayList<>());
-
-        List<Brand> result = dashboardController.getBrands();
-
-        List<Brand> expected = new ArrayList<>();
-        Assert.assertEquals(expected, result);
-    }
-
-    @Test
-    public void getFuelTypes_ExpectsListOfFuelTypes() {
-        when(dashboardService.getAllFuelTypes()).thenReturn(new ArrayList<>());
-
-        List<FuelType> result = dashboardController.getFuelTypes();
-
-        List<FuelType> expected = new ArrayList<>();
-        Assert.assertEquals(expected, result);
-    }
-
-    @Test
-    public void getTransmissionTypes_ExpectsListOfTransmissionTypes() {
-        when(dashboardService.getAllTransmissionTypes()).thenReturn(new ArrayList<>());
-
-        List<TransmissionType> result = dashboardController.getTransmissionTypes();
-
-        List<TransmissionType> expected = new ArrayList<>();
-        Assert.assertEquals(expected, result);
-    }
 }

@@ -12,35 +12,33 @@
 </head>
 
 <body>
-<div class="container-fluid menu">
+    <div class="container-fluid menu">
+        <a class="btn btn-md" th:href="@{/logout}" th:if="${isLoggedIn}">Logout</a>
+        <a class="btn btn-md" th:href="@{/login}" th:if="${isLoggedIn} == false">Login</a>
+        <a class="btn btn-md" th:href="@{/registration}">Registration</a>
+        <a class="btn btn-md" th:href="@{/user/edit}" th:if="${isLoggedIn}">My account</a>
+        <a class="btn btn-md" th:href="@{/admin/user/all}" th:if="${isAdmin}">Users</a>
+        <a class="btn btn-md" th:href="@{/admin/car/all}" th:if="${isAdmin}">Cars</a>
+        <a class="btn btn-md" th:href="@{/}">Home</a>
 
-    <form th:action="@{/registration}" method="get">
-        <button class="btn btn-md register-btn" type="Submit">Registration</button>
-    </form>
+        <span id="logo">Car Rent</span>
+    </div>
 
-    <form th:action="@{/}" method="get">
-        <button class="btn btn-md home-btn" type="Submit">Home</button>
-    </form>
+    <div class="container">
+        <form th:action="@{/login}" method="POST" class="form-signin">
+            <h3 class="form-signin-heading">Log in</h3>
+            <br/>
 
-    <span id="logo">Car Rent</span>
+            <input type="text" id="email" name="email"  th:placeholder="Email"
+                   class="form-control" /> <br/>
+            <input type="password"  th:placeholder="Password"
+                   id="password" name="password" class="form-control" /> <br />
 
-</div>
-
-<div class="container">
-    <form th:action="@{/login}" method="POST" class="form-signin">
-        <h3 class="form-signin-heading">Log in</h3>
-        <br/>
-
-        <input type="text" id="email" name="email"  th:placeholder="Email"
-               class="form-control" /> <br/>
-        <input type="password"  th:placeholder="Password"
-               id="password" name="password" class="form-control" /> <br />
-
-        <div align="center" th:if="${param.error}">
-            <p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
-    </form>
-</div>
+            <div align="center" th:if="${param.error}">
+                <p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
+        </form>
+    </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 package com.rent.rest_api_impl;
 
+import com.rent.model.dto.CarDto;
 import com.rent.model.dto.UserDto;
-import com.rent.model.entity.Car;
 import com.rent.model.entity.Users;
 import com.rent.rest_api.LoginController;
 import com.rent.service_api.CarService;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,8 +42,7 @@ public class LoginControllerImpl implements LoginController {
     public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView();
 
-        Users user = new Users();
-        modelAndView.addObject("user", user);
+        modelAndView.addObject("user", new Users());
         modelAndView.setViewName("registration");
 
         return modelAndView;
@@ -62,24 +60,13 @@ public class LoginControllerImpl implements LoginController {
                             "There is already a user registered with the email provided");
         }
 
-        if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("registration");
-        } else {
+        if (!bindingResult.hasErrors()){
             userService.saveUser(user);
 
-            modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new Users());
-            modelAndView.setViewName("registration");
-
+            modelAndView.addObject("successMessage", "User has been registered successfully");
         }
-        return modelAndView;
-    }
-
-    @Override
-    @RequestMapping(value="/admin/dashboard", method = RequestMethod.GET)
-    public ModelAndView admin_dashboard() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("admin/dashboard");
+        modelAndView.setViewName("registration");
 
         return modelAndView;
     }
@@ -89,7 +76,7 @@ public class LoginControllerImpl implements LoginController {
     public ModelAndView home(Principal principal) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        List<Car> cars = carService.getAllCars();
+        List<CarDto> cars = carService.getAllCars();
 
         boolean isAdmin = auth.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"));
         boolean isUserLoggedIn = (principal == null) ? false : true;
