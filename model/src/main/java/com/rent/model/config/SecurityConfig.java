@@ -46,7 +46,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
             .authorizeRequests()
-            .antMatchers("/").permitAll()
             .antMatchers("/home").permitAll()
             .antMatchers("/login").permitAll()
             .antMatchers("/registration").permitAll()
@@ -54,14 +53,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
             .authenticated()
             .and().csrf().disable().formLogin()
-            .loginPage("/login")
-            .failureUrl("/login?error=true")
+            .loginPage("/login").failureUrl("/login?error=true")
             .defaultSuccessUrl("/home")
             .usernameParameter("email")
             .passwordParameter("password")
             .and().logout()
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-            .logoutSuccessUrl("/").and().exceptionHandling()
+            .logoutSuccessUrl("/home").and().exceptionHandling()
             .accessDeniedPage("/access-denied");
     }
 
@@ -69,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
             .ignoring()
-            .antMatchers("/resources/**", "/static/**", "/css/**", "/images/**");
+            .antMatchers("/resources/**", "/static/**", "/css/**", "/images/**", "/vendor/**", "/fonts/**");
     }
 
     @Bean

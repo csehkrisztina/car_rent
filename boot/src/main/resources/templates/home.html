@@ -1,56 +1,153 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Car Rent</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container-fluid menu">
-        <a class="btn btn-md" th:href="@{/logout}" th:if="${isLoggedIn}">Logout</a>
-        <a class="btn btn-md" th:href="@{/login}" th:if="${isLoggedIn} == false">Login</a>
-        <a class="btn btn-md" th:href="@{/registration}" th:if="${isLoggedIn} == false">Registration</a>
-        <a class="btn btn-md" th:href="@{/user/edit}" th:if="${isLoggedIn}">My account</a>
-        <a class="btn btn-md" th:href="@{/admin/user/all}" th:if="${isAdmin}">Users</a>
-        <a class="btn btn-md" th:href="@{/admin/car/all}" th:if="${isAdmin}">Cars</a>
-        <a class="btn btn-md" th:href="@{/}">Home</a>
 
-        <span id="logo">Car Rent</span>
-    </div>
-
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-        <div th:each="car : ${cars}" class="row car-detail-row">
-            <div class="car-detail col-lg-6">
-                <span class="detail-label col-lg-4">Brand</span>
-                <p th:text="${car.brand}" class="detail-data col-lg-8"></p>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/car/all}" sec:authorize="hasAnyAuthority('ADMIN')">Cars</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/user/all}" sec:authorize="hasAnyAuthority('ADMIN')">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/edit}" sec:authorize="isAuthenticated()">My account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/registration}" sec:authorize="isAuthenticated() == false">Registration</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/login}" sec:authorize="isAuthenticated() == false">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-                <span class="detail-label col-lg-4">Register number</span>
-                <p th:text="${car.registNumber}" class="detail-data col-lg-8"></p>
+<header class="masthead text-center text-white">
+    <div class="masthead-content">
+        <div class="container">
+            <h1 class="masthead-heading mb-0">Car Rent</h1>
+            <h2 class="masthead-subheading mb-0">You rent a lot more than a car</h2>
+        </div>
+    </div>
+</header>
 
-                <span class="detail-label col-lg-4">Transmission type</span>
-                <p th:text="${car.transmissionType}" class="detail-data col-lg-8"></p>
-
-                <span class="detail-label col-lg-4">Fuel type</span>
-                <p th:text="${car.fuelType}" class="detail-data col-lg-8"></p>
-
-                <span class="detail-label col-lg-4">Price (RON)</span>
-                <p th:text="${car.price}" class="detail-data col-lg-8"></p>
-
-                <span th:if="${car.available} == true" class="car-available">Available</span>
-                <span th:if="${car.available} == false" class="car-not-available">Not available</span>
-                <button class="btn btn-md rent-detail-btn">Rent</button>
+<section th:each="car,iterator : ${cars}">
+    <div class="container">
+        <div class="row align-items-center" th:if="${iterator.odd}">
+            <div class="col-lg-6 order-lg-2">
+                <div class="p-5">
+                    <img class="img-fluid rounded-circle" src="images/car.jpeg" alt="">
+                </div>
             </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+                    <h2 class="display-4" th:text="${car.brand}"></h2>
 
-            <div class="col-lg-6 rent">
-                <p>Rent</p>
+                    <p>
+                        <label>Register number:</label>
+                        <span th:text="${car.registNumber}" class="disp-inl-block"></span>
+                    </p>
+
+                    <p>
+                        <label>Transmission type:</label>
+                        <span th:text="${car.transmissionType}" class="disp-inl-block"></span>
+                    </p>
+
+                    <p>
+                        <label>Fuel type:</label>
+                        <span th:text="${car.fuelType}" class="disp-inl-block"></span>
+                    </p>
+
+                    <p>
+                        <label>Price (RON):</label>
+                        <b><span th:text="${car.price}" class="disp-inl-block"></span></b>
+                    </p>
+
+                    <label th:if="${car.available} == true" class="car-available">Available</label>
+                    <label th:if="${car.available} == false" class="car-not-available">Not available</label>
+                    <button class="btn btn-md rent-btn" th:if="${authenticated}">Rent</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row align-items-center" th:if="${iterator.even}">
+            <div class="col-lg-6">
+                <div class="p-5">
+                    <img class="img-fluid rounded-circle" src="images/car.jpeg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="p-5">
+                    <h2 class="display-4" th:text="${car.brand}"></h2>
+
+                    <p>
+                        <label>Register number:</label>
+                        <span th:text="${car.registNumber}" class="disp-inl-block"></span>
+                    </p>
+
+                    <p>
+                        <label>Transmission type:</label>
+                        <span th:text="${car.transmissionType}" class="disp-inl-block"></span>
+                    </p>
+
+                    <p>
+                        <label>Fuel type:</label>
+                        <span th:text="${car.fuelType}" class="disp-inl-block"></span>
+                    </p>
+
+                    <p>
+                        <label>Price (RON):</label>
+                        <b><span th:text="${car.price}" class="disp-inl-block"></span></b>
+                    </p>
+
+                    <label th:if="${car.available} == true" class="car-available">Available</label>
+                    <label th:if="${car.available} == false" class="car-not-available">Not available</label>
+                    <button class="btn btn-md rent-btn" th:if="${authenticated}">Rent</button>
+                </div>
             </div>
         </div>
     </div>
+</section>
+
+<footer class="py-5 bg-black">
+    <div class="container">
+        <p class="m-0 text-center text-white small">Copyright &copy; 2018</p>
+    </div>
+</footer>
+
+ <!--Bootstrap core JavaScript -->
+<!--<script src="vendor/jquery/jquery.min.js"></script>-->
+<!--<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+
 </body>
+
 </html>
+
+
+

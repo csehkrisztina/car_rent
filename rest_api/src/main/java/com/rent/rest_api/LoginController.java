@@ -23,5 +23,5 @@ public interface LoginController {
     ModelAndView registration(@Valid UserDto user, BindingResult bindingResult);
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-    ModelAndView home(Principal principal);
+    ModelAndView home();
 }

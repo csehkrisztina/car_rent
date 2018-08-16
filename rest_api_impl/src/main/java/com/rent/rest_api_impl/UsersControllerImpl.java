@@ -87,16 +87,16 @@ public class UsersControllerImpl implements UsersController {
     public ModelAndView deleteUser(@RequestParam String email) {
         userService.deleteUser(email);
 
+        List<UserDto> users = userService.getAllUsers();
+
         boolean isAdmin = userService.isAdmin();
         boolean isUserLoggedIn = userService.isLoggedInUser();
-
-        List<UserDto> users = userService.getAllUsers();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("users", users);
         modelAndView.addObject("isAdmin", isAdmin);
         modelAndView.addObject("isLoggedIn", isUserLoggedIn);
-        modelAndView.addObject("message", "User with e-mail '" + email + "' was deleted");
+        modelAndView.addObject("message", "User with e-mail '" + email + "' has been deleted successfully!");
         modelAndView.setViewName("users");
 
         return modelAndView;
