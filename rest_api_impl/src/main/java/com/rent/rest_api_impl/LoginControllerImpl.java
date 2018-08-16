@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -60,7 +59,7 @@ public class LoginControllerImpl implements LoginController {
                             "There is already a user registered with the email provided");
         }
 
-        if (!bindingResult.hasErrors()){
+        if (!bindingResult.hasErrors()) {
             userService.saveUser(user);
 
             modelAndView.addObject("user", new Users());
@@ -72,20 +71,20 @@ public class LoginControllerImpl implements LoginController {
     }
 
     @Override
-    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-    public ModelAndView home(Principal principal) {
+    @RequestMapping(value = {"/home"}, method = RequestMethod.GET)
+    public ModelAndView home() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         List<CarDto> cars = carService.getAllCars();
 
-        boolean isAdmin = auth.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"));
-        boolean isUserLoggedIn = (principal == null) ? false : true;
+//        boolean isAdmin = auth.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"));
+//        boolean isUserLoggedIn = (auth.getPrincipal() == null) ? false : true;
 
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.addObject("cars", cars);
-        modelAndView.addObject("isAdmin", isAdmin);
-        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
+//        modelAndView.addObject("isAdmin", isAdmin);
+//        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
         modelAndView.setViewName("home");
 
         return modelAndView;

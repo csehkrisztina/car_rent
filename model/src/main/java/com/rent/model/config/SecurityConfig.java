@@ -46,7 +46,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
             .authorizeRequests()
-            .antMatchers("/").permitAll()
             .antMatchers("/home").permitAll()
             .antMatchers("/login").permitAll()
             .antMatchers("/registration").permitAll()
@@ -61,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .passwordParameter("password")
             .and().logout()
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-            .logoutSuccessUrl("/").and().exceptionHandling()
+            .logoutSuccessUrl("/home").and().exceptionHandling()
             .accessDeniedPage("/access-denied");
     }
 
@@ -69,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
             .ignoring()
-            .antMatchers("/resources/**", "/static/**", "/css/**", "/images/**");
+            .antMatchers("/resources/**", "/static/**", "/css/**", "/images/**", "/vendor/**");
     }
 
     @Bean

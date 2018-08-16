@@ -121,6 +121,7 @@ public class CarControllerImpl implements CarController {
         modelAndView.addObject("cars", cars);
         modelAndView.addObject("isAdmin", isAdmin);
         modelAndView.addObject("isLoggedIn", isUserLoggedIn);
+        modelAndView.addObject("message", "The car has been deleted successfully!");
         modelAndView.setViewName("admin/cars");
 
         return modelAndView;

@@ -1,32 +1,48 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <title>Admin | Cars</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/general.css}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../css/style.css" rel="stylesheet">
+    <!--<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+    <!--<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 </head>
 
 <body>
-<div class="container-fluid menu">
-    <div class="container-fluid menu">
-        <a class="btn btn-md" th:href="@{/logout}" th:if="${isLoggedIn}">Logout</a>
-        <a class="btn btn-md" th:href="@{/login}" th:if="${isLoggedIn} == false">Login</a>
-        <a class="btn btn-md" th:href="@{/registration}" th:if="${isLoggedIn} == false">Registration</a>
-        <a class="btn btn-md" th:href="@{/user/edit}" th:if="${isLoggedIn}">My account</a>
-        <a class="btn btn-md" th:href="@{/admin/user/all}" th:if="${isAdmin}">Users</a>
-        <a class="btn btn-md" th:href="@{/admin/car/all}" th:if="${isAdmin}">Cars</a>
-        <a class="btn btn-md" th:href="@{/}">Home</a>
 
-        <span id="logo">Car Rent</span>
-
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/car/all}" sec:authorize="hasAnyAuthority('ADMIN')">Cars</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/user/all}" sec:authorize="hasAnyAuthority('ADMIN')">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/edit}" sec:authorize="isAuthenticated()">My account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/registration}" sec:authorize="isAuthenticated() == false">Registration</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/login}" sec:authorize="isAuthenticated() == false">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
+</nav>
 
 <div class="container">
     <div class="alert alert-success alert-dismissable" th:if="${message}">
@@ -68,7 +84,7 @@
             </form>
 
             <form th:action="@{/admin/car/delete}" method="get">
-                <input type="hidden" name="email" th:value="${car.registNumber}"/>
+                <input type="hidden" name="registNumber" th:value="${car.registNumber}"/>
                 <button class="btn btn-md delete-btn" type="Submit">Delete</button>
             </form>
         </div>

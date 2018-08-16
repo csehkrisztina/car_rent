@@ -1,44 +1,65 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <title>Spring Security Tutorial</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/style.css" rel="stylesheet">
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 </head>
 
 <body>
-    <div class="container-fluid menu">
-        <a class="btn btn-md" th:href="@{/logout}" th:if="${isLoggedIn}">Logout</a>
-        <a class="btn btn-md" th:href="@{/login}" th:if="${isLoggedIn} == false">Login</a>
-        <a class="btn btn-md" th:href="@{/registration}">Registration</a>
-        <a class="btn btn-md" th:href="@{/user/edit}" th:if="${isLoggedIn}">My account</a>
-        <a class="btn btn-md" th:href="@{/admin/user/all}" th:if="${isAdmin}">Users</a>
-        <a class="btn btn-md" th:href="@{/admin/car/all}" th:if="${isAdmin}">Cars</a>
-        <a class="btn btn-md" th:href="@{/}">Home</a>
 
-        <span id="logo">Car Rent</span>
-    </div>
-
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-        <form th:action="@{/login}" method="POST" class="form-signin">
-            <h3 class="form-signin-heading">Log in</h3>
-            <br/>
-
-            <input type="text" id="email" name="email"  th:placeholder="Email"
-                   class="form-control" /> <br/>
-            <input type="password"  th:placeholder="Password"
-                   id="password" name="password" class="form-control" /> <br />
-
-            <div align="center" th:if="${param.error}">
-                <p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
-        </form>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/car/all}" sec:authorize="hasAnyAuthority('ADMIN')">Cars</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/user/all}" sec:authorize="hasAnyAuthority('ADMIN')">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/edit}" sec:authorize="isAuthenticated()">My account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/registration}" sec:authorize="isAuthenticated() == false">Registration</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/login}" sec:authorize="isAuthenticated() == false">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
+                </li>
+            </ul>
+        </div>
     </div>
+</nav>
+
+<div class="container">
+    <form th:action="@{/login}" method="POST" class="form-signin">
+        <h3 class="form-signin-heading">Log in</h3>
+        <br/>
+
+        <input type="text" id="email" name="email"  th:placeholder="Email"
+               class="form-control" /> <br/>
+        <input type="password"  th:placeholder="Password"
+               id="password" name="password" class="form-control" /> <br />
+
+        <div align="center" th:if="${param.error}">
+            <p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
+    </form>
+</div>
+
 </body>
 </html>
