@@ -164,3 +164,16 @@ header.masthead .bg-circle-4 {
 .disp-inl-block {
     display: inline-block;
 }
+
+.rent-btn {
+  display: block;
+  background-color: #ffbf00;
+  padding: 5px 30px;
+  text-transform: uppercase;
+}
+
+.alert {
+    width: 100%;
+    position: relative;
+    top: 40px;
+}

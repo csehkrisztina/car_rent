@@ -20,26 +20,18 @@ public class UsersControllerImpl implements UsersController {
 
     @Override
     @RequestMapping(value = "/user/edit", method = RequestMethod.GET)
-    public ModelAndView editUser(@RequestParam(value = "email", required = false) String email) {
-        String title = "Edit '" + email + "' account";
+    public ModelAndView editUser() {
+        ModelAndView modelAndView = new ModelAndView();
 
-        if(email == null) {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            email = auth.getName();
-            title = "Edit my account";
-        }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
 
         Users user = userService.findUserByEmail(email);
 
-        boolean isAdmin = userService.isAdmin();
-        boolean isUserLoggedIn = userService.isLoggedInUser();
-
-        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", user);
-        modelAndView.addObject("isAdmin", isAdmin);
-        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
-        modelAndView.addObject("title", title);
-        modelAndView.setViewName("user-edit");
+        modelAndView.addObject("title", "Edit my account");
+        modelAndView.addObject("action", "/user/edit");
+        modelAndView.setViewName("registration");
 
         return modelAndView;
     }
@@ -52,15 +44,12 @@ public class UsersControllerImpl implements UsersController {
 
         userService.updateUser(user.getId(), updatedUser);
 
-        boolean isAdmin = userService.isAdmin();
-        boolean isUserLoggedIn = userService.isLoggedInUser();
-
         ModelAndView modelAndView = new ModelAndView();
+
         modelAndView.addObject("user", userService.findUserByEmail(updatedUser.getEmail()));
-        modelAndView.addObject("isAdmin", isAdmin);
-        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
+        modelAndView.addObject("title", "Edit my account");
         modelAndView.addObject("successMessage", "The user has been updated successfully");
-        modelAndView.setViewName("user-edit");
+        modelAndView.setViewName("registration");
 
         return modelAndView;
     }
@@ -70,13 +59,8 @@ public class UsersControllerImpl implements UsersController {
     public ModelAndView getUsers() {
         List<UserDto> users = userService.getAllUsers();
 
-        boolean isAdmin = userService.isAdmin();
-        boolean isUserLoggedIn = userService.isLoggedInUser();
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("users", users);
-        modelAndView.addObject("isAdmin", isAdmin);
-        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
         modelAndView.setViewName("admin/users");
 
         return modelAndView;
@@ -89,15 +73,48 @@ public class UsersControllerImpl implements UsersController {
 
         List<UserDto> users = userService.getAllUsers();
 
-        boolean isAdmin = userService.isAdmin();
-        boolean isUserLoggedIn = userService.isLoggedInUser();
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("users", users);
-        modelAndView.addObject("isAdmin", isAdmin);
-        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
-        modelAndView.addObject("message", "User with e-mail '" + email + "' has been deleted successfully!");
-        modelAndView.setViewName("users");
+        modelAndView.addObject("successMessage", "User with e-mail '" + email + "' has been deleted successfully!");
+        modelAndView.setViewName("admin/users");
+
+        return modelAndView;
+    }
+
+    @Override
+    @RequestMapping(value = "/admin/user/edit", method = RequestMethod.GET)
+    public ModelAndView adminEditUser(@RequestParam String email) {
+        Users user = userService.findUserByEmail(email);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("admin/user-edit");
+
+        return modelAndView;
+    }
+
+    @Override
+    @RequestMapping(value = "/admin/user/edit", method = RequestMethod.POST,
+            headers = "content-type=application/x-www-form-urlencoded")
+    public ModelAndView adminEditUser(@ModelAttribute UserDto updatedUser) {
+        Users user = userService.findUserByEmail(updatedUser.getEmail());
+
+        userService.updateUser(user.getId(), updatedUser);
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.addObject("user", userService.findUserByEmail(updatedUser.getEmail()));
+        modelAndView.addObject("successMessage", "The user has been updated successfully");
+        modelAndView.setViewName("admin/user-edit");
+
+        return modelAndView;
+    }
+
+    @Override
+    @RequestMapping(value = "/admin/panel", method = RequestMethod.GET)
+    public ModelAndView adminPanel() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("admin/admin-panel");
 
         return modelAndView;
     }

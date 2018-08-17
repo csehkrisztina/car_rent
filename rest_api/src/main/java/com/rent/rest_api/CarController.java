@@ -15,17 +15,18 @@ public interface CarController {
     @RequestMapping(value = "/admin/car/add", method = RequestMethod.GET)
     ModelAndView addCar();
 
-    @RequestMapping(value = "/admin/car/add", method = RequestMethod.POST)
-    ModelAndView addCar(@RequestBody CarDto car);
+    @RequestMapping(value = "/admin/car/add", method = RequestMethod.POST,
+            headers = "content-type=application/x-www-form-urlencoded")
+    ModelAndView addCar(@ModelAttribute CarDto car);
 
     @RequestMapping(value = "/admin/car/all", method = RequestMethod.GET)
     ModelAndView getAllCars();
 
     @RequestMapping(value = "/admin/car/edit", method = RequestMethod.GET)
-    ModelAndView editCar();
+    ModelAndView editCar(@RequestParam String registNumber);
 
     @RequestMapping(value = "/admin/car/edit", method = RequestMethod.POST)
-    ModelAndView editCar(@RequestBody CarDto carToUpdate);
+    ModelAndView editCar(@ModelAttribute CarDto updatedCar);
 
     @DeleteMapping("/admin/car/delete")
     ModelAndView deleteCar(@RequestParam String registNumber);

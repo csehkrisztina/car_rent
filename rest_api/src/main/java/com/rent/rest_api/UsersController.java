@@ -8,14 +8,25 @@ import org.springframework.web.servlet.ModelAndView;
 public interface UsersController {
 
     @RequestMapping(value = "/user/edit", method = RequestMethod.GET)
-    ModelAndView editUser(@RequestParam String email);
+    ModelAndView editUser();
 
-    @RequestMapping(value = "/user/edit", method = RequestMethod.POST)
-    ModelAndView editUser(@RequestBody UserDto updatedUser);
+    @RequestMapping(value = "/user/edit", method = RequestMethod.POST,
+            headers = "content-type=application/x-www-form-urlencoded")
+    ModelAndView editUser(@ModelAttribute UserDto updatedUser);
 
     @RequestMapping(value = "/admin/user/all", method = RequestMethod.GET)
     ModelAndView getUsers();
 
     @RequestMapping(value = "/admin/user/delete", method = RequestMethod.GET)
     ModelAndView deleteUser(@PathVariable String email);
+
+    @RequestMapping(value = "/admin/user/edit", method = RequestMethod.GET)
+    ModelAndView adminEditUser(@RequestParam String email);
+
+    @RequestMapping(value = "/admin/user/edit", method = RequestMethod.POST,
+            headers = "content-type=application/x-www-form-urlencoded")
+    ModelAndView adminEditUser(@ModelAttribute UserDto updatedUser);
+
+    @RequestMapping(value = "/admin/panel", method = RequestMethod.GET)
+    ModelAndView adminPanel();
 }

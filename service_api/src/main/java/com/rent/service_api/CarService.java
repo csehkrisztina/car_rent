@@ -10,13 +10,15 @@ public interface CarService {
 
     CarDto getCar(Long id);
 
+    CarDto getCarByRegistNumber(String registNumber);
+
     List<CarDto> getAllCars();
 
     List<CarDto> getAvailableCars();
 
     void saveCar(CarDto car);
 
-    void updateCar(Long id, CarDto updatedCar);
+    void updateCar(String registNumber, CarDto updatedCar);
 
     void deleteCar(String registNumber);
 

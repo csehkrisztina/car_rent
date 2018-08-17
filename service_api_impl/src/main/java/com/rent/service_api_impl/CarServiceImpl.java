@@ -23,6 +23,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public CarDto getCarByRegistNumber(String registNumber) {
+        return carRepository.findByRegistNumber(registNumber).toDto();
+    }
+
+    @Override
     public List<CarDto> getAllCars() {
         List<CarDto> cars = new ArrayList<>();
         carRepository.findAll().forEach((car) -> cars.add(car.toDto()));
@@ -52,8 +57,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void updateCar(Long id, CarDto updatedCar) {
-        Car c = carRepository.findById(id).get();
+    public void updateCar(String registNumber, CarDto updatedCar) {
+        Car c = carRepository.findByRegistNumber(registNumber);
         c.update(updatedCar);
 
         carRepository.save(c);

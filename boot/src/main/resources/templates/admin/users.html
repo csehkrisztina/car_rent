@@ -1,83 +1,138 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Admin | Users</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="css/style.css" rel="stylesheet">
-    <!--<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
-    <!--<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <title>Dashboard | Users</title>
+
+    <link href="/css/font-face.css" rel="stylesheet" media="all">
+    <link href="/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <link href="/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <link href="/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <link href="/css/theme.css" rel="stylesheet" media="all">
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-    <div class="container">
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/admin/car/all}" sec:authorize="hasAnyAuthority('ADMIN')">Cars</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/admin/user/all}" sec:authorize="hasAnyAuthority('ADMIN')">Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user/edit}" sec:authorize="isAuthenticated()">My account</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/registration}" sec:authorize="isAuthenticated() == false">Registration</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/login}" sec:authorize="isAuthenticated() == false">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
-                </li>
-            </ul>
+<div class="page-wrapper">
+
+    <aside class="menu-sidebar d-none d-lg-block">
+        <div class="logo">
+            <a href="#">
+                <h2>Admin Panel</h2>
+            </a>
+        </div>
+        <div class="menu-sidebar__content js-scrollbar1">
+            <nav class="navbar-sidebar">
+                <ul class="list-unstyled navbar__list">
+                    <li class="active has-sub">
+                        <a class="js-arrow" href="#"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/user/all}"><i class="fas fa-users"></i>Users</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/car/all}"><i class="fas fa-car"></i>Cars</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/rent/all}"><i class="far fa-briefcase"></i>Rents</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/home}"><i class="fas fa-sign-out-alt"></i>Back to Home</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+    <div class="page-container">
+
+        <div class="main-content">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+
+                    <div class="alert alert-success alert-dismissable" th:if="${successMessage}">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <p th:text="${successMessage}" />
+                    </div>
+
+                    <section class="p-t-20">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3 class="title-5 m-b-35">All users</h3>
+
+                                    <div class="table-responsive table-responsive-data2">
+                                        <table class="table table-data2">
+                                            <thead>
+                                                <tr>
+                                                    <th>Index</th>
+                                                    <th>Name</th>
+                                                    <th>E-mail</th>
+                                                    <th>Role</th>
+                                                    <th>Active</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody th:each="user,iterator : ${users}">
+                                                <tr class="tr-shadow">
+                                                    <td th:text="${iterator.index + 1}" />
+                                                    <td th:text="${user.firstName + ' ' + user.lastName}"></td>
+                                                    <td th:text="${user.email}" />
+                                                    <td th:text="${user.role}"></td>
+                                                    <td th:text="${user.active}"></td>
+                                                    <td>
+                                                        <div class="table-data-feature">
+                                                            <form th:action="@{/admin/user/edit}" method="get" class="action">
+                                                                <input type="hidden" name="email" th:value="${user.email}"/>
+                                                                <button class="item" type="Submit" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                                    <i class="zmdi zmdi-edit"></i>
+                                                                </button>
+                                                            </form>
+
+                                                            <form th:action="@{/admin/user/delete}" method="get" class="action">
+                                                                <input type="hidden" name="email" th:value="${user.email}"/>
+                                                                <button class="item" type="Submit" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                                    <i class="zmdi zmdi-delete"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="spacer"></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="copyright">
+                                <p>Copyright © 2018</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
 
-<div class="container">
-    <div class="alert alert-success alert-dismissable" th:if="${message}">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <p th:text="${message}" />
-    </div>
-    <h2>Users</h2>
-    <table id="users">
-        <thead>
-            <tr>
-                <td>Index</td>
-                <td>E-mail</td>
-                <td>Role</td>
-                <td>Actions</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="user,iterator : ${users}">
-                <td th:text="${iterator.index + 1}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.role}"></td>
-                <td>
-                    <form th:action="@{/user/edit}" method="get" class="action">
-                        <input type="hidden" name="email" th:value="${user.email}"/>
-                        <button class="btn btn-md edit-btn" type="Submit">Edit</button>
-                    </form>
-
-                    <form th:action="@{/admin/user/delete}" method="get" class="action">
-                        <input type="hidden" name="email" th:value="${user.email}"/>
-                        <button class="btn btn-md delete-btn" type="Submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </div>
 
 </body>

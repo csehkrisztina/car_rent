@@ -76,6 +76,7 @@ public class Car extends Base {
         this.price = car.getPrice();
         this.transmissionType = car.getTransmissionType();
         this.brand = car.getBrand();
+        this.available = car.isAvailable();
     }
 
     public CarDto toDto() {
