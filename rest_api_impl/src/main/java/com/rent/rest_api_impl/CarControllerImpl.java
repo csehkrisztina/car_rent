@@ -4,12 +4,11 @@ import com.rent.model.Brand;
 import com.rent.model.FuelType;
 import com.rent.model.TransmissionType;
 import com.rent.model.dto.CarDto;
+import com.rent.model.entity.Users;
 import com.rent.rest_api.CarController;
 import com.rent.service_api.CarService;
 import com.rent.service_api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,13 +29,8 @@ public class CarControllerImpl implements CarController {
     public ModelAndView getAllCars() {
         List<CarDto> cars = carService.getAllCars();
 
-        boolean isAdmin = userService.isAdmin();
-        boolean isUserLoggedIn = userService.isLoggedInUser();
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("cars", cars);
-        modelAndView.addObject("isAdmin", isAdmin);
-        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
         modelAndView.setViewName("admin/cars");
 
         return modelAndView;
@@ -44,14 +38,46 @@ public class CarControllerImpl implements CarController {
 
     @Override
     @RequestMapping(value = "/admin/car/edit", method = RequestMethod.GET)
-    public ModelAndView editCar() {
-        return null;
+    public ModelAndView editCar(@RequestParam String registNumber) {
+        CarDto car = carService.getCarByRegistNumber(registNumber);
+
+        List<Brand> brands = Arrays.asList(Brand.values());
+        List<TransmissionType> transmissionTypes = Arrays.asList(TransmissionType.values());
+        List<FuelType> fuelTypes = Arrays.asList(FuelType.values());
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("car", car);
+
+        modelAndView.addObject("brands", brands);
+        modelAndView.addObject("transmissionTypes", transmissionTypes);
+        modelAndView.addObject("fuelTypes", fuelTypes);
+
+        modelAndView.setViewName("admin/car-add-edit");
+
+        return modelAndView;
     }
 
     @Override
-    @RequestMapping(value = "/admin/car/edit", method = RequestMethod.POST)
-    public ModelAndView editCar(@RequestBody CarDto carToUpdate) {
-        return null;
+    @RequestMapping(value = "/admin/car/edit", method = RequestMethod.POST,
+            headers = "content-type=application/x-www-form-urlencoded")
+    public ModelAndView editCar(@ModelAttribute CarDto updatedCar) {
+        carService.updateCar(updatedCar.getRegistNumber(), updatedCar);
+
+        List<Brand> brands = Arrays.asList(Brand.values());
+        List<TransmissionType> transmissionTypes = Arrays.asList(TransmissionType.values());
+        List<FuelType> fuelTypes = Arrays.asList(FuelType.values());
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("car", new CarDto());
+
+        modelAndView.addObject("brands", brands);
+        modelAndView.addObject("transmissionTypes", transmissionTypes);
+        modelAndView.addObject("fuelTypes", fuelTypes);
+
+        modelAndView.addObject("successMessage", "The car has been saved successfully");
+        modelAndView.setViewName("admin/car-add-edit");
+
+        return modelAndView;
     }
 
     @Override
@@ -65,17 +91,11 @@ public class CarControllerImpl implements CarController {
     public ModelAndView addCar() {
         ModelAndView modelAndView = new ModelAndView();
 
-        boolean isAdmin = userService.isAdmin();
-        boolean isUserLoggedIn = userService.isLoggedInUser();
-
         List<Brand> brands = Arrays.asList(Brand.values());
         List<TransmissionType> transmissionTypes = Arrays.asList(TransmissionType.values());
         List<FuelType> fuelTypes = Arrays.asList(FuelType.values());
 
         modelAndView.addObject("car", new CarDto());
-
-        modelAndView.addObject("isAdmin", isAdmin);
-        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
 
         modelAndView.addObject("brands", brands);
         modelAndView.addObject("transmissionTypes", transmissionTypes);
@@ -90,17 +110,10 @@ public class CarControllerImpl implements CarController {
     @RequestMapping(value = "/admin/car/add", method = RequestMethod.POST,
             headers = "content-type=application/x-www-form-urlencoded")
     public ModelAndView addCar(@ModelAttribute CarDto car) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
         carService.saveCar(car);
-
-        boolean isAdmin = userService.isAdmin();
-        boolean isUserLoggedIn = userService.isLoggedInUser();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("car", new CarDto());
-        modelAndView.addObject("isAdmin", isAdmin);
-        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
         modelAndView.addObject("successMessage", "The car has been saved successfully");
         modelAndView.setViewName("admin/car-add-edit");
 
@@ -114,13 +127,8 @@ public class CarControllerImpl implements CarController {
 
         List<CarDto> cars = carService.getAllCars();
 
-        boolean isAdmin = userService.isAdmin();
-        boolean isUserLoggedIn = userService.isLoggedInUser();
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("cars", cars);
-        modelAndView.addObject("isAdmin", isAdmin);
-        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
         modelAndView.addObject("message", "The car has been deleted successfully!");
         modelAndView.setViewName("admin/cars");
 

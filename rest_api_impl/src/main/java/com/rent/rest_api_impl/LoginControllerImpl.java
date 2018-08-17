@@ -42,6 +42,7 @@ public class LoginControllerImpl implements LoginController {
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.addObject("user", new Users());
+        modelAndView.addObject("title", "Registration Form");
         modelAndView.setViewName("registration");
 
         return modelAndView;
@@ -63,6 +64,8 @@ public class LoginControllerImpl implements LoginController {
             userService.saveUser(user);
 
             modelAndView.addObject("user", new Users());
+            modelAndView.addObject("action", "/registration");
+            modelAndView.addObject("title", "Registration Form");
             modelAndView.addObject("successMessage", "User has been registered successfully");
         }
         modelAndView.setViewName("registration");
@@ -77,14 +80,9 @@ public class LoginControllerImpl implements LoginController {
 
         List<CarDto> cars = carService.getAllCars();
 
-//        boolean isAdmin = auth.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"));
-//        boolean isUserLoggedIn = (auth.getPrincipal() == null) ? false : true;
-
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.addObject("cars", cars);
-//        modelAndView.addObject("isAdmin", isAdmin);
-//        modelAndView.addObject("isLoggedIn", isUserLoggedIn);
         modelAndView.setViewName("home");
 
         return modelAndView;

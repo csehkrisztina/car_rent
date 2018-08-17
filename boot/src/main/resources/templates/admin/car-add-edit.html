@@ -1,113 +1,151 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head>
-    <title>Admin | Add car</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-    <link href="../css/style.css" rel="stylesheet">
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dashboard | Car edit</title>
+
+    <link href="/css/font-face.css" rel="stylesheet" media="all">
+    <link href="/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <link href="/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <link href="/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <link href="/css/theme.css" rel="stylesheet" media="all">
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-    <div class="container">
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/admin/car/all}" sec:authorize="hasAnyAuthority('ADMIN')">Cars</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/admin/user/all}" sec:authorize="hasAnyAuthority('ADMIN')">Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user/edit}" sec:authorize="isAuthenticated()">My account</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/registration}" sec:authorize="isAuthenticated() == false">Registration</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/login}" sec:authorize="isAuthenticated() == false">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
-                </li>
-            </ul>
+<div class="page-wrapper">
+
+    <aside class="menu-sidebar d-none d-lg-block">
+        <div class="logo">
+            <a href="#">
+                <h2>Admin Panel</h2>
+            </a>
+        </div>
+        <div class="menu-sidebar__content js-scrollbar1">
+            <nav class="navbar-sidebar">
+                <ul class="list-unstyled navbar__list">
+                    <li class="active has-sub">
+                        <a class="js-arrow" href="#"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/user/all}"><i class="fas fa-users"></i>Users</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/car/all}"><i class="fas fa-car"></i>Cars</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/rent/all}"><i class="far fa-briefcase"></i>Rents</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/home}"><i class="fas fa-sign-out-alt"></i>Back to Home</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+    <div class="page-container">
+
+        <div class="main-content">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+
+                    <div class="alert alert-success alert-dismissable" th:if="${successMessage}">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <span th:text="${successMessage}" />
+                    </div>
+
+                    <section class="p-t-20">
+                        <div>
+                            <div class="row">
+                                <form class="form-horizontal col-md-6" autocomplete="off" th:action="@{/admin/car/edit}" th:object="${car}" method="post">
+                                    <fieldset>
+                                        <h3 class="text-center">Edit car</h3>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="brand">Brand:</label>
+                                            <div class="col-md-9">
+                                                <select class="form-control" id="brand" size="1" th:field="*{brand}">
+                                                    <option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="regist-number">Registration number:</label>
+                                            <div class="col-md-9">
+                                                <input id="regist-number" type="text" th:field="*{registNumber}" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="fuel-type">Fuel type:</label>
+                                            <div class="col-md-9">
+                                                <select id="fuel-type" class="form-control" size="1" th:field="*{fuelType}">
+                                                    <option th:each="fuel : ${fuelTypes}" th:value="${fuel}" th:text="${fuel}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="type">Transmission type:</label>
+                                            <div class="col-md-9">
+                                                <select id="type" class="form-control" size="1" th:field="*{transmissionType}">
+                                                    <option th:each="type : ${transmissionTypes}" th:value="${type}" th:text="${type}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="price">Price (RON):</label>
+                                            <div class="col-md-9">
+                                                <input id="price" type="number" step="any" th:field="*{price}" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3"></label>
+                                            <div class="col-md-9">
+                                                <input type="submit"class="btn btn-primary" value="Save Changes">
+                                                <a th:href="@{/admin/car/all}" class="btn btn-default">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="copyright">
+                                <p>Copyright © 2018</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
 
-<div class="container">
-    <div class="row">
-
-        <div class="alert alert-success alert-dismissable" th:if="${successMessage}">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <p th:text="${successMessage}" />
-        </div>
-
-        <div class="col-md-6 col-md-offset-3">
-
-            <h2>Add car</h2>
-
-            <form autocomplete="off" action="#" th:action="@{/admin/car/add}" th:object="${car}" method="post"
-                  class="form-horizontal" role="form">
-
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <label>Brand</label>
-                        <select class="form-control" th:field="*{brand}">
-                            <option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}"></option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <label>Registration number</label>
-                        <input type="text" th:field="*{registNumber}" placeholder="Registration number" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <label>Fuel type</label>
-                        <select class="form-control" th:field="*{fuelType}">
-                            <option th:each="fuel : ${fuelTypes}" th:value="${fuel}" th:text="${fuel}"></option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <label>Transmission type</label>
-                        <select class="form-control" th:field="*{transmissionType}">
-                            <option th:each="type : ${transmissionTypes}" th:value="${type}" th:text="${type}"></option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <label>Price</label>
-                        <input type="number" step="any" th:field="*{price}" placeholder="Price" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <button type="submit" class="btn btn-primary btn-block">Save car</button>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-    </div>
 </div>
 
 </body>

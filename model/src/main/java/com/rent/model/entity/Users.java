@@ -118,6 +118,7 @@ public class Users {
         this.identNumber = user.getIdentNumber();
         this.age = user.getAge();
         this.email = user.getEmail();
+        this.active = user.isActive();
     }
 
     public UserDto toDto() {
@@ -127,6 +128,7 @@ public class Users {
         user.setIdentNumber(this.identNumber);
         user.setAge(this.age);
         user.setEmail(this.email);
+        user.setActive(this.isActive());
         return user;
     }
 }

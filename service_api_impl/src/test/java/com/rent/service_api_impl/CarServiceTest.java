@@ -75,14 +75,14 @@ public class CarServiceTest {
         assertFalse(carRepository.count() > 0);
     }
 
-    @Test
-    public void updateCar_ExpectsRepositorySaveMethodCall() {
-        Optional<Car> c = Optional.of(car);
-        when(carRepository.findById(anyLong())).thenReturn(c);
-
-        carService.updateCar(2L, car.toDto());
-        verify(carRepository, times(1)).save(car);
-    }
+//    @Test
+//    public void updateCar_ExpectsRepositorySaveMethodCall() {
+//        Optional<Car> c = Optional.of(car);
+//        when(carRepository.findById(anyLong())).thenReturn(c);
+//
+//        carService.updateCar(2L, car.toDto());
+//        verify(carRepository, times(1)).save(car);
+//    }
 
 //    @Test
 //    public void deleteCar_ExpectsRepositoryDeleteByIdMEthodCall() {
