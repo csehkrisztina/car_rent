@@ -11,12 +11,18 @@ public class RentControllerImpl implements RentController {
     @Override
     @RequestMapping(value = "/rent", method = RequestMethod.GET)
     public ModelAndView rentACar() {
-        return null;
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("rent");
+        return modelAndView;
     }
 
     @Override
     @RequestMapping(value = "/rent", method = RequestMethod.POST)
     public ModelAndView rentACar(RentDto rent) {
-        return null;
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("rent");
+        return modelAndView;
     }
 }

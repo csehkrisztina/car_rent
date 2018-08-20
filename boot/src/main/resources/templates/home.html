@@ -25,12 +25,6 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/home}">Home</a>
                 </li>
-                <!--<li class="nav-item">-->
-                    <!--<a class="nav-link" th:href="@{/admin/car/all}" sec:authorize="hasAnyAuthority('ADMIN')">Cars</a>-->
-                <!--</li>-->
-                <!--<li class="nav-item">-->
-                    <!--<a class="nav-link" th:href="@{/admin/user/all}" sec:authorize="hasAnyAuthority('ADMIN')">Users</a>-->
-                <!--</li>-->
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/admin/panel}" sec:authorize="hasAnyAuthority('ADMIN')">Admin Panel</a>
                 </li>
@@ -94,7 +88,8 @@
 
                     <label th:if="${car.available} == true" class="car-available">Available</label>
                     <label th:if="${car.available} == false" class="car-not-available">Not available</label>
-                    <button class="btn btn-md rent-btn" th:if="${car.available}" sec:authorize="isAuthenticated()">Rent</button>
+                    <a th:href="@{/rent}" class="btn btn-md rent-btn" th:if="${car.available}" sec:authorize="isAuthenticated()">Rent</a>
+                    <a th:href="@{/login}" class="btn btn-md rent-btn" th:if="${car.available}" sec:authorize="isAuthenticated() == false">Log in for Rent</a>
                 </div>
             </div>
         </div>
@@ -131,7 +126,8 @@
 
                     <label th:if="${car.available} == true" class="car-available">Available</label>
                     <label th:if="${car.available} == false" class="car-not-available">Not available</label>
-                    <button class="btn btn-md rent-btn" th:if="${car.available}" sec:authorize="isAuthenticated()">Rent</button>
+                    <a th:href="@{/rent}" class="btn btn-md rent-btn" th:if="${car.available}" sec:authorize="isAuthenticated()">Rent</a>
+                    <a th:href="@{/login}" class="btn btn-md rent-btn" th:if="${car.available}" sec:authorize="isAuthenticated() == false">Log in for Rent</a>
                 </div>
             </div>
         </div>

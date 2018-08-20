@@ -17,6 +17,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -52,18 +53,18 @@ public class CarServiceTest {
         assertEquals(expected, result);
     }
 
-//    @Test
-//    public void getAllCars_ExpectsListOfCarDtos() {
-//        List<Car> cars = new ArrayList<>();
-//        cars.add(car);
-//        when(carRepository.findAll()).thenReturn(cars);
-//
-//        List<CarDto> result = carService.getAllCars();
-//
-//        List<CarDto> expected = new ArrayList<>();
-//        expected.add(car.toDto());
-//        assertEquals(expected, result);
-//    }
+    @Test
+    public void getAllCars_ExpectsListOfCarDtos() {
+        List<Car> cars = new ArrayList<>();
+        cars.add(car);
+        when(carRepository.findAll()).thenReturn(cars);
+
+        List<CarDto> result = carService.getAllCars();
+
+        List<CarDto> expected = new ArrayList<>();
+        expected.add(car.toDto());
+        assertEquals(expected, result);
+    }
 
     @Test
     public void saveCar_ExpectsAnObjectAddedInRepository() {
@@ -75,22 +76,25 @@ public class CarServiceTest {
         assertFalse(carRepository.count() > 0);
     }
 
-//    @Test
-//    public void updateCar_ExpectsRepositorySaveMethodCall() {
-//        Optional<Car> c = Optional.of(car);
-//        when(carRepository.findById(anyLong())).thenReturn(c);
-//
-//        carService.updateCar(2L, car.toDto());
-//        verify(carRepository, times(1)).save(car);
-//    }
+    @Test
+    public void updateCar_ExpectsRepositorySaveMethodCall() {
+        when(carRepository.findByRegistNumber(anyString())).thenReturn(car);
 
-//    @Test
-//    public void deleteCar_ExpectsRepositoryDeleteByIdMEthodCall() {
-//
-//        carService.deleteCar(2L);
-//
-//        verify(carRepository, times(1)).deleteById(2L);
-//    }
+        Car c = new Car();
+        c.setRegistNumber("BH23ERT");
+
+        carService.updateCar(car.getRegistNumber(), c.toDto());
+        verify(carRepository, times(1)).save(car);
+    }
+
+    @Test
+    public void deleteCar_ExpectsRepositoryDeleteByIdMEthodCall() {
+        when(carRepository.findByRegistNumber(anyString())).thenReturn(car);
+
+        carService.deleteCar(car.getRegistNumber());
+
+        verify(carRepository, times(1)).delete(car);
+    }
 
     @Test
     public void existsCarWithId_ExpectsTrue() {

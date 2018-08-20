@@ -52,7 +52,7 @@ public class CarControllerImpl implements CarController {
         modelAndView.addObject("transmissionTypes", transmissionTypes);
         modelAndView.addObject("fuelTypes", fuelTypes);
 
-        modelAndView.setViewName("admin/car-add-edit");
+        modelAndView.setViewName("admin/car-edit");
 
         return modelAndView;
     }
@@ -75,7 +75,7 @@ public class CarControllerImpl implements CarController {
         modelAndView.addObject("fuelTypes", fuelTypes);
 
         modelAndView.addObject("successMessage", "The car has been saved successfully");
-        modelAndView.setViewName("admin/car-add-edit");
+        modelAndView.setViewName("admin/car-edit");
 
         return modelAndView;
     }
@@ -101,7 +101,7 @@ public class CarControllerImpl implements CarController {
         modelAndView.addObject("transmissionTypes", transmissionTypes);
         modelAndView.addObject("fuelTypes", fuelTypes);
 
-        modelAndView.setViewName("admin/car-add-edit");
+        modelAndView.setViewName("admin/car-add");
 
         return modelAndView;
     }
@@ -115,7 +115,7 @@ public class CarControllerImpl implements CarController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("car", new CarDto());
         modelAndView.addObject("successMessage", "The car has been saved successfully");
-        modelAndView.setViewName("admin/car-add-edit");
+        modelAndView.setViewName("admin/car-add");
 
         return modelAndView;
     }
